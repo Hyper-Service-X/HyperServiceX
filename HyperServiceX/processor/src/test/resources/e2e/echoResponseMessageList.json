@@ -1,0 +1,56 @@
+[
+  {
+    "header": {
+      "fromMemId": "SACHSGS1XXX",
+      "toMemId": "AABKSGS0XXX",
+      "bizMsgIdr": "B20191121AABKSGS0BRT192068006",
+      "msgDefIdr": "admn.006.001.01",
+      "headerCrtDate": "2019-11-21T03:38:23Z",
+      "mqaRecNodeSiteNo": 1,
+      "intTarSiteNo": 1,
+      "actTarSiteNo": 1,
+      "startTime": 1574307503198,
+      "initTime": 0,
+      "correlationId": "5B42403732653061376664",
+      "instrgMemberSiteNumber": 1,
+      "instrdMemberSiteNumber": 0,
+      "megToInstdTime": 0
+    },
+    "msgId": "20191121AABKSGS0BRT192068006",
+    "msgCreDtTm": "2019-11-21T11:38:23.155",
+    "echoResponseTxn": {
+      "originalInstrId": "20191121AABKSGS0BRT192068006",
+      "fnctnCd": "731",
+      "txnSts": "ACTC",
+      "instgAgtMmbId": "SACHSGS1XXX",
+      "instdAgtMmbId": "AABKSGS0XXX"
+    }
+  },
+  {
+    "header": {
+      "fromMemId": "SACHSGS1XXX",
+      "toMemId": "AABKSGS0XXX",
+      "bizMsgIdr": "B20191121AABKSGS0BRT192068006",
+      "msgDefIdr": "admn.006.001.01",
+      "headerCrtDate": "2019-11-21T03:38:23Z",
+      "mqaRecNodeSiteNo": 1,
+      "intTarSiteNo": 1,
+      "actTarSiteNo": 1,
+      "startTime": 1574307503198,
+      "initTime": 0,
+      "correlationId": "5B42403732653061376664",
+      "instrgMemberSiteNumber": 1,
+      "instrdMemberSiteNumber": 0,
+      "megToInstdTime": 0
+    },
+    "msgId": "20191121AABKSGS0BRT192068006",
+    "msgCreDtTm": "2019-11-21T11:38:23.155",
+    "echoResponseTxn": {
+      "originalInstrId": "20191121AABKSGS0BRT192068006",
+      "fnctnCd": "731",
+      "txnSts": "ACTC",
+      "instgAgtMmbId": "SACHSGS1XXX",
+      "instdAgtMmbId": "AABKSGS0XXX"
+    }
+  }
+]

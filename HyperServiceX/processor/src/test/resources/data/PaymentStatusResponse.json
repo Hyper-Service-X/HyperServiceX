@@ -1,0 +1,93 @@
+[
+  {
+    "header": {
+      "fromMemId": "BCSSSGTHXXX",
+      "toMemId": "BCSSSGSGXXX",
+      "bizMsgIdr": "B20200312AABKSGS0BRT254413629",
+      "msgDefIdr": "pacs.002.001.10",
+      "headerCrtDate": "2020-02-26T06:08:36Z",
+      "instrId": "",
+      "maRecNodeSiteNo": 1,
+      "intTarSiteNo": 1,
+      "actTarSiteNo": 1,
+      "startTime": 1583896717241,
+      "initTime": 0,
+      "correlationId": "5B424062353233656667",
+      "instrgMemberSiteNumber": 1,
+      "instrdMemberSiteNumber": 1,
+      "recQueueName": "BCSSSGTH_MQ1.RESPONSE.FROM.ITMX_MQ1",
+      "resQueueName": "BCSSSGSG_MQ1.RESPONSE.TO.G3_MQ1",
+      "resQueueManagerName": "PG3RT1",
+      "receiveOrSentTime": "1583896717241",
+      "megToInstdTime": 0
+    },
+    "msgId": "M20200312AABKSGS0BRT254413629",
+    "creDtTm": "2020-02-26T14:08:36.288",
+    "orgMsg": {
+      "orgnlMsgId": "M20200226AABKSGS0BRT163066858",
+      "orgnlMsgNmId": "pacs.008.001.02",
+      "orgnlCreDtTm": null,
+      "orgnlNbOfTxs": 1,
+      "orgnInstraId": "20200312AABKSGS0BRT4176157",
+      "orgnIntrBkSttlmDt": null
+    },
+    "paymentStatusRecords": [
+      {
+        "orgnlInstrId": "20200312AABKSGS0BRT4176157",
+        "txSts": "ACCT",
+        "accptncDtTm": null,
+        "clrSysRef": "",
+        "instgMmbId": "AABKSGS0XXX",
+        "instdMmbId": "DBSSSGS0XXX",
+        "orgnlTxRef": null,
+        "intrBkSttlmDt": null,
+        "reasonCode": null
+      }
+    ]
+  },
+  {
+    "header": {
+      "fromMemId": "BCSSSGTH",
+      "toMemId": "SACHSGS1XXX",
+      "bizMsgIdr": "B20200312AABKSGS0BRT254413629",
+      "msgDefIdr": "pacs.003.001.02",
+      "headerCrtDate": "2019-11-18T08:38:33Z",
+      "instrId": "20200312AABKSGS0BRT4176157",
+      "maRecNodeSiteNo": 1,
+      "intTarSiteNo": 1,
+      "actTarSiteNo": 1,
+      "startTime": 1584006613559,
+      "initTime": 0,
+      "correlationId": "3132333435",
+      "instrgMemberSiteNumber": 0,
+      "instrdMemberSiteNumber": 0,
+      "recQueueName": "queueName",
+      "resQueueManagerName": "queueManagerName",
+      "receiveOrSentTime": "1584006613559",
+      "megToInstdTime": 0
+    },
+    "msgId": null,
+    "creDtTm": null,
+    "orgMsg": {
+      "orgnlMsgId": null,
+      "orgnlMsgNmId": "pacs.008.001.02",
+      "orgnlCreDtTm": null,
+      "orgnlNbOfTxs": null,
+      "orgnInstraId": "20200312AABKSGS0BRT4176157",
+      "orgnIntrBkSttlmDt": null
+    },
+    "paymentStatusRecords": [
+      {
+        "orgnlInstrId": "20200312AABKSGS0BRT4176157",
+        "txSts": "RJCT",
+        "accptncDtTm": null,
+        "clrSysRef": "",
+        "instgMmbId": "AABKSGS0XXX",
+        "instdMmbId": "DBSSSGS0XXX",
+        "orgnlTxRef": null,
+        "intrBkSttlmDt": null,
+        "reasonCode": null
+      }
+    ]
+  }
+]

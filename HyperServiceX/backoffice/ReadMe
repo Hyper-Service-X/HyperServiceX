@@ -1,0 +1,18 @@
+#################################Environment Variables#############################################
+Follow ReadMe in Next Gen Switch main path.
+
+
+
+##############################################Build & Run###############################################
+1. To build and install distribution
+    gradle clean build distZip installDist -x test -Pprofile=dev
+    //If the profile is not given, it will use dev by default
+
+2. To run the Backoffice
+    ./build/install/back-office/bin/backoffice
+
+    .\build\install\backoffice\bin\backoffice
+
+##############################################Swagger###############################################
+for back-office documentation
+http://{ADDRESS}:{PORT}/backoffice/swaggecdr-ui.html

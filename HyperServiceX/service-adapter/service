@@ -1,0 +1,28 @@
+
+
+You create a unit /etc/systemd/system/mydaemon.service.
+
+[Unit]
+Description=MQ Adapter
+After=syslog.target
+
+[Service]
+ExecStart=/xborder/message-adapter/bin/message-adapter
+Restart=on-failure
+StandardOutput=null
+
+[Install]
+WantedBy=multi-user.target
+
+
+
+systemctl start message-adapter
+
+systemctl enable message-adapter
+
+
+
+
+https://docs.spring.io/spring-boot/docs/current/reference/html/deployment.html
+
+https://unix.stackexchange.com/questions/426862/proper-way-to-run-shell-script-as-a-daemon

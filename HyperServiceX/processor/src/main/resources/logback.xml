@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <springProperty scope="context" name="NODE_NAME" source="NODE.NAME"/>
+    <property name="PROJECT_NAME" value="XB" />
+    <!-- Send debug messages to System.out -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- By default, encoders are assigned the type ch.qos.logback.classic.encoder.PatternLayoutEncoder -->
+        <encoder>
+            <pattern>%d{yyyy-MM-dd_HH:mm:ss.SSS} [%thread] ${PROJECT_NAME}_${NODE_NAME} %-5level %logger{5} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/hyperServiceX/app/logs/processor/app.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d{yyyy-MM-dd_HH:mm:ss.SSS} [%thread] ${PROJECT_NAME}_${NODE_NAME} %-5level %logger{36} - %msg%n</Pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>/hyperServiceX/app/logs/processor/app.%d{yyyy-MM-dd}.log.zip</FileNamePattern>
+            <maxHistory>7</maxHistory>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="RAW_LOG_APPENDER"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/hyperServiceX/app/logs/processor/raw.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d{yyyy-MM-dd_HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>/hyperServiceX/app/logs/processor/raw.%d{yyyy-MM-dd_HH}.log.zip</FileNamePattern>
+            <maxHistory>200</maxHistory>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="MONITOR_LOG_APPENDER"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/hyperServiceX/app/logs/processor/monitor.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d{yyyy-MM-dd_HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>/hyperServiceX/app/logs/processor/monitor.%d{yyyy-MM-dd_HH}.log.zip</FileNamePattern>
+            <maxHistory>7</maxHistory>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="ECHO_LOG_APPENDER"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/hyperServiceX/app/logs/processor/echo.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d{yyyy-MM-dd_HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>/hyperServiceX/app/logs/processor/echo.%d{yyyy-MM-dd_HH}.log.zip</FileNamePattern>
+            <maxHistory>7</maxHistory>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="SERVICE_REGISTRY_LOG_APPENDER"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/hyperServiceX/app/logs/processor-itmx/serviceRegistry.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d{yyyy-MM-dd_HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>/hyperServiceX/app/logs/processor/serviceRegistry.%d{yyyy-MM-dd_HH}.log.zip</FileNamePattern>
+            <maxHistory>7</maxHistory>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+    <appender name="SOLACE_LOG_APPENDER"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/hyperServiceX/app/logs/processor/solace.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d{yyyy-MM-dd_HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>/hyperServiceX/app/logs/processor/solace.%d{yyyy-MM-dd_HH}.log.zip</FileNamePattern>
+            <maxHistory>7</maxHistory>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="CACHE_DATA_LOG_APPENDER"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/hyperServiceX/app/logs/processor/cacheData.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d{yyyy-MM-dd_HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>/hyperServiceX/app/logs/processor/cacheData.%d{yyyy-MM-dd_HH}.log.zip</FileNamePattern>
+            <maxHistory>7</maxHistory>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="JUNIT_APPENDER"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/hyperServiceX/app/logs/processor/junit_test.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d{yyyy-MM-dd_HH:mm:ss.SSS} [%-5level %logger{0} - %msg%n</Pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>/hyperServiceX/app/logs/processor/junit_test.%d{yyyy-MM-dd}.log.zip</FileNamePattern>
+            <maxHistory>7</maxHistory>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+    <appender name="UDTLOG_APPENDER"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/hyperServiceX/app/logs/processor/udtlog.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d{yyyy-MM-dd_HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>/hyperServiceX/app/logs/processor/udtlog.%d{yyyy-MM-dd_HH}.log.zip</FileNamePattern>
+            <maxHistory>200</maxHistory>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+    <appender name="XBCTTLOG_APPENDER"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/hyperServiceX/app/logs/processor/xbcttlog.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d{yyyy-MM-dd_HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>/hyperServiceX/app/logs/processor/xbcttlog.%d{yyyy-MM-dd_HH}.log.zip</FileNamePattern>
+            <maxHistory>200</maxHistory>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+    <appender name="RCTTLOG_APPENDER"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/hyperServiceX/app/logs/processor/rcttlog.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d{yyyy-MM-dd_HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>/hyperServiceX/app/logs/processor/rcttlog.%d{yyyy-MM-dd_HH}.log.zip</FileNamePattern>
+            <maxHistory>200</maxHistory>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+    <appender name="UDTLOG_FILE_APPENDER"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/hyperServiceX/app/logs/processor/udtLogFile.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d{yyyy-MM-dd_HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>/hyperServiceX/app/logs/processor/udtLogFile.%d{yyyy-MM-dd_HH}.log.zip</FileNamePattern>
+            <maxHistory>200</maxHistory>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="XBCTTLOG_FILE_APPENDER"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/hyperServiceX/app/logs/processor/xbcttLogFile.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d{yyyy-MM-dd_HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>/hyperServiceX/app/logs/processor/xbcttLogFile.%d{yyyy-MM-dd_HH}.log.zip</FileNamePattern>
+            <maxHistory>200</maxHistory>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="RCTTLOG_FILE_APPENDER"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/hyperServiceX/app/logs/processor/rcttLogFile.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d{yyyy-MM-dd_HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>/hyperServiceX/app/logs/processor/rcttLogFile.%d{yyyy-MM-dd_HH}.log.zip</FileNamePattern>
+            <maxHistory>200</maxHistory>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+    <appender name="XBLKRQ_TLOG_FILE_APPENDER"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/hyperServiceX/app/logs/processor/xblkrqTLogFile.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d{yyyy-MM-dd_HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>/hyperServiceX/app/logs/processor/xblkrqTLogFile.%d{yyyy-MM-dd_HH}.log.zip</FileNamePattern>
+            <maxHistory>200</maxHistory>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+    <appender name="XBLKRS_TLOG_FILE_APPENDER"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/hyperServiceX/app/logs/processor/xblkrsTLogFile.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d{yyyy-MM-dd_HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>/hyperServiceX/app/logs/processor/xblkrsTLogFile.%d{yyyy-MM-dd_HH}.log.zip</FileNamePattern>
+            <maxHistory>200</maxHistory>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+    <appender name="LKUPAUDT_TLOG_FILE_APPENDER"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/hyperServiceX/app/logs/processor/lkupauditTLog.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d{yyyy-MM-dd_HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>/hyperServiceX/app/logs/processor/lkupauditTLog.%d{yyyy-MM-dd_HH}.log.zip</FileNamePattern>
+            <maxHistory>200</maxHistory>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="UDTLOG_FILE_REMOTE_APPENDER"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/hyperServiceX/app/logs/processor/udtLogFileRemote.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d{yyyy-MM-dd_HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>/hyperServiceX/app/logs/processor/udtLogFileRemote.%d{yyyy-MM-dd_HH}.log.zip</FileNamePattern>
+            <maxHistory>200</maxHistory>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="XBCTTLOG_FILE_REMOTE_APPENDER"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/hyperServiceX/app/logs/processor/xbcttLogFileRemote.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d{yyyy-MM-dd_HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>/hyperServiceX/app/logs/processor/xbcttLogFileRemote.%d{yyyy-MM-dd_HH}.log.zip</FileNamePattern>
+            <maxHistory>200</maxHistory>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="RCTTLOG_FILE_REMOTE_APPENDER"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/hyperServiceX/app/logs/processor/rcttLogFileRemote.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d{yyyy-MM-dd_HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>/hyperServiceX/app/logs/processor/rcttLogFileRemote.%d{yyyy-MM-dd_HH}.log.zip</FileNamePattern>
+            <maxHistory>200</maxHistory>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+    <appender name="XBLKRQ_TLOG_FILE_REMOTE_APPENDER"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/hyperServiceX/app/logs/processor/xblkrqTLogFileRemote.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d{yyyy-MM-dd_HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>/hyperServiceX/app/logs/processor/xblkrqTLogFileRemote.%d{yyyy-MM-dd_HH}.log.zip</FileNamePattern>
+            <maxHistory>200</maxHistory>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+    <appender name="XBLKRS_TLOG_FILE_REMOTE_APPENDER"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/hyperServiceX/app/logs/processor/xblkrsTLogFileRemote.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d{yyyy-MM-dd_HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>/hyperServiceX/app/logs/processor/xblkrsTLogFileRemote.%d{yyyy-MM-dd_HH}.log.zip</FileNamePattern>
+            <maxHistory>200</maxHistory>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+    <appender name="LKUPAUDT_TLOG_FILE_REMOTE_APPENDER"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/hyperServiceX/app/logs/processor/lkupaudtTLogFileRemote.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d{yyyy-MM-dd_HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>/hyperServiceX/app/logs/processor/lkupaudtTLogFileRemote.%d{yyyy-MM-dd_HH}.log.zip</FileNamePattern>
+            <maxHistory>200</maxHistory>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+
+    <logger name="org.apache.kafka" level="INFO"/>
+    <logger name="org.apache.kafka.common.metrics" level="INFO"/>
+    <logger name="RAW_LOG" additivity="false">
+        <level value="INFO"/>
+        <appender-ref ref="RAW_LOG_APPENDER"/>
+    </logger>
+    <logger name="MONITOR_LOG" additivity="false">
+        <level value="INFO"/>
+        <appender-ref ref="MONITOR_LOG_APPENDER"/>
+    </logger>
+
+    <logger name="ECHO_LOG" additivity="true">
+        <level value="INFO"/>
+        <appender-ref ref="ECHO_LOG_APPENDER"/>
+    </logger>
+    <logger name="SERVICE_REGISTRY_LOG" additivity="true">
+        <level value="INFO"/>
+        <appender-ref ref="SERVICE_REGISTRY_LOG_APPENDER"/>
+    </logger>
+    <logger name="SOLACE_LOG" additivity="true">
+        <level value="INFO"/>
+        <appender-ref ref="SOLACE_LOG_APPENDER"/>
+    </logger>
+    <logger name="CACHE_DATA_LOG" additivity="true">
+        <level value="INFO"/>
+        <appender-ref ref="CACHE_DATA_LOG_APPENDER"/>
+    </logger>
+
+    <logger name="UDTLOG" additivity="true">
+        <level value="INFO"/>
+        <appender-ref ref="UDTLOG_APPENDER"/>
+    </logger>
+
+    <logger name="XBCTTLOG" additivity="true">
+        <level value="INFO"/>
+        <appender-ref ref="XBCTTLOG_APPENDER"/>
+    </logger>
+
+    <logger name="RCTTLOG" additivity="true">
+        <level value="INFO"/>
+        <appender-ref ref="RCTTLOG_APPENDER"/>
+    </logger>
+
+
+    <logger name="UDTLOG_FILE" additivity="true">
+        <level value="INFO"/>
+        <appender-ref ref="UDTLOG_FILE_APPENDER"/>
+    </logger>
+
+    <logger name="XBCTTLOG_FILE" additivity="true">
+        <level value="INFO"/>
+        <appender-ref ref="XBCTTLOG_FILE_APPENDER"/>
+    </logger>
+
+    <logger name="RCTTLOG_FILE" additivity="true">
+        <level value="INFO"/>
+        <appender-ref ref="RCTTLOG_FILE_APPENDER"/>
+    </logger>
+
+
+    <logger name="UDTLOG_FILE_REMOTE" additivity="true">
+        <level value="INFO"/>
+        <appender-ref ref="UDTLOG_FILE_REMOTE_APPENDER"/>
+    </logger>
+
+    <logger name="XBCTTLOG_FILE_REMOTE" additivity="true">
+        <level value="INFO"/>
+        <appender-ref ref="XBCTTLOG_FILE_REMOTE_APPENDER"/>
+    </logger>
+
+    <logger name="RCTTLOG_FILE_REMOTE" additivity="true">
+        <level value="INFO"/>
+        <appender-ref ref="RCTTLOG_FILE_REMOTE_APPENDER"/>
+    </logger>
+
+    <logger name="JUNIT_LOG" additivity="false">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="JUNIT_APPENDER"/>
+    </logger>
+
+
+    <logger name="XBLKRQ_FILE" additivity="true">
+        <level value="INFO"/>
+        <appender-ref ref="XBLKRQ_TLOG_FILE_APPENDER"/>
+    </logger>
+    <logger name="XBLKRS_FILE" additivity="true">
+        <level value="INFO"/>
+        <appender-ref ref="XBLKRS_TLOG_FILE_APPENDER"/>
+    </logger>
+    <logger name="LKUPAUDT_FILE" additivity="true">
+        <level value="INFO"/>
+        <appender-ref ref="LKUPAUDT_TLOG_FILE_APPENDER"/>
+    </logger>
+    <logger name="XBLKRQ_FILE_REMOTE" additivity="true">
+        <level value="INFO"/>
+        <appender-ref ref="XBLKRQ_TLOG_FILE_REMOTE_APPENDER"/>
+    </logger>
+    <logger name="XBLKRS_FILE_REMOTE" additivity="true">
+        <level value="INFO"/>
+        <appender-ref ref="XBLKRS_TLOG_FILE_REMOTE_APPENDER"/>
+    </logger>
+    <logger name="LKUPAUDT_FILE_REMOTE" additivity="true">
+        <level value="INFO"/>
+        <appender-ref ref="LKUPAUDT_TLOG_FILE_REMOTE_APPENDER"/>
+    </logger>
+    <!-- By default, the level of the root level is set to DEBUG -->
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="FILE"/>
+    </root>
+</configuration>

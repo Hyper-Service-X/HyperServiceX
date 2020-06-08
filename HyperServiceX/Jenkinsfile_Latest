@@ -1,0 +1,184 @@
+pipeline {
+    agent {
+        node {
+           label 'master'
+        }
+    }
+    environment {
+        GRADLE_HOME="/opt/gradle/gradle-5.2.1"
+        PATH="${GRADLE_HOME}/bin:${env.PATH}"
+    }
+    stages {
+        stage('checkout'){
+            steps {
+                checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'github', url: 'https://github.com/next-gen-switch/XBorderGW.git']]])
+            }
+        }
+        stage('build'){
+            steps {
+                echo "build"
+                dir("XBorderGW") {
+                    sh '$JAVA_HOME/bin/java -version'
+                    sh 'gradle clean build -x test distZip installDist -Pprofile=aws'
+                }
+                dir("XBorder Modules/simulator") {
+                    sh '$JAVA_HOME/bin/java -version'
+                    sh 'gradle clean build -x test distZip installDist -Pprofile=aws'
+                }
+            }
+        }
+        stage('set env variables'){
+            steps {
+                script {
+                    def dateFormat = new java.text.SimpleDateFormat("yyyyMMdd_HHmm")
+                    def date = new Date()
+                    env.CURRENT_DATETIME = dateFormat.format(date)
+                }
+            }
+        }
+        stage('Deploy Processor'){
+            steps {
+                script {
+                    env.DEPLOY_PROCESSOR = input message: '', parameters: [booleanParam(defaultValue: false, description: '', name: 'Do you wnat to deploy Processor?')]
+                }
+                echo "${env.DEPLOY_PROCESSOR}"
+                script {
+                    if(env.DEPLOY_PROCESSOR == 'true'){
+                        echo "Deploying to Performance Testing Servers!"
+                        autoDeploy("10.200.2.16","processor","1.0-SNAPSHOT")
+                        autoDeploy("10.200.2.225","processor","1.0-SNAPSHOT")
+                        autoDeploy("10.200.6.61","processor","1.0-SNAPSHOT")
+                        autoDeploy("10.200.6.29","processor","1.0-SNAPSHOT")
+
+                    } else {
+                        echo "Not deploying processor"
+                    }
+                }
+            }
+        }
+        stage('Deploy Processor ITMX'){
+                    steps {
+                        script {
+                            env.DEPLOY_PROCESSOR_ITMX = input message: '', parameters: [booleanParam(defaultValue: false, description: '', name: 'Do you want to deploy Processor ITMX?')]
+                        }
+                        echo "${env.DEPLOY_PROCESSOR_ITMX}"
+                        script {
+                            if(env.DEPLOY_PROCESSOR_ITMX == 'true'){
+                                echo "Deploying to Performance Testing Servers!"
+                                autoDeploy("10.200.2.16","processor-itmx","1.0-SNAPSHOT")
+                                autoDeploy("10.200.2.225","processor-itmx","1.0-SNAPSHOT")
+                                autoDeploy("10.200.6.61","processor-itmx","1.0-SNAPSHOT")
+                                autoDeploy("10.200.6.29","processor-itmx","1.0-SNAPSHOT")
+
+                            } else {
+                                echo "Not deploying processor"
+                            }
+                        }
+                    }
+                }
+        stage('Deploy backoffice'){
+            steps {
+                script {
+                    env.DEPLOY_BO = input message: '', parameters: [booleanParam(defaultValue: false, description: '', name: 'Do you want to deploy BO?')]
+                }
+                echo "${env.DEPLOY_BO}"
+                script {
+                    if(env.DEPLOY_BO == 'true'){
+                        echo "Deploying to Performance Testing Servers!"
+                        autoDeploy("10.200.2.16","backoffice","1.0-SNAPSHOT")
+                        //autoDeploy("10.200.2.225","backoffice","1.0-SNAPSHOT")
+
+                    } else {
+                        echo "Not deploying backoffice"
+                    }
+                }
+            }
+        }
+        stage('Deploy MA'){
+            steps {
+                script {
+                    env.DEPLOY_MQA = input message: '', parameters: [booleanParam(defaultValue: false, description: '', name: 'Do you want to deploy MA?')]
+                }
+                echo "${env.DEPLOY_MQA}"
+                script {
+                    if(env.DEPLOY_MQA == 'true'){
+                        echo "Deploying to Performance Testing Servers!"
+                            autoDeploy("10.200.2.16","message-adapter","1.0-SNAPSHOT")
+                            autoDeploy("10.200.2.225","message-adapter","1.0-SNAPSHOT")
+                            autoDeploy("10.200.6.61","message-adapter","1.0-SNAPSHOT")
+                            autoDeploy("10.200.6.29","message-adapter","1.0-SNAPSHOT")
+
+                    } else {
+                        echo "Not deploying message-adapter"
+                    }
+                }
+            }
+        }
+        stage('Deploy Simulator'){
+            steps {
+                script {
+                    env.DEPLOY_SIMULATOR = input message: '', parameters: [booleanParam(defaultValue: false, description: '', name: 'Do you want to deploy Simulator?')]
+                }
+                echo "${env.DEPLOY_SIMULATOR}"
+                script {
+                    if(env.DEPLOY_SIMULATOR == 'true'){
+                        echo "Deploying to Performance Testing Servers!"
+                        autoDeploySimulator("10.200.2.98","simulator","0.0.1-SNAPSHOT")
+                    } else {
+                        echo "Not deploying simulator"
+                    }
+                }
+            }
+        }
+
+
+    }
+}
+
+
+def autoDeploy(remote_server,app, version) {
+    echo "Starting the deployment of "+ app + " in " + remote_server;
+
+    def sshCmdPrefix = 'ssh  -o BatchMode=yes -o StrictHostKeyChecking=no -i "/var/lib/jenkins/NETS-LAB-POC-EC2-KEY.pem" ec2-user@'+ remote_server + ' '
+    def scpCmdPrefix = 'scp  -o BatchMode=yes -o StrictHostKeyChecking=no -i "/var/lib/jenkins/NETS-LAB-POC-EC2-KEY.pem" '
+    def userDir = '/home/ec2-user'
+    def deployDir = userDir + '/deploy'
+    def newZipFileDir = userDir + '/releases/'+ env.CURRENT_DATETIME + '/'
+    def zip_file = app+'-' + version + '.zip';
+
+
+    //Create the folder for war file and Copy the new war file
+    sh sshCmdPrefix + 'mkdir -p ' + newZipFileDir
+    sh sshCmdPrefix + 'mkdir -p ' + deployDir
+    sh scpCmdPrefix + 'XBorderGW/'+ app +'/build/distributions/'+  zip_file + ' ec2-user@'+ remote_server + ':' + newZipFileDir
+    sh scpCmdPrefix + 'XBorderGW/auto_deployment_script_xb.sh  ec2-user@'+ remote_server + ':' + deployDir
+
+    echo zip_file +" copied successfully to " + remote_server
+
+    sh sshCmdPrefix + ' sh  '+ userDir +'/deploy/auto_deployment_script_xb.sh '+app +' '+ version + ' ' + env.CURRENT_DATETIME
+    failOnError: false
+}
+
+
+def autoDeploySimulator(remote_server,app, version) {
+    echo "Starting the deployment of "+ app + " in " + remote_server;
+
+    def sshCmdPrefix = 'ssh  -o BatchMode=yes -o StrictHostKeyChecking=no -i "/var/lib/jenkins/NETS-LAB-POC-EC2-KEY.pem" ec2-user@'+ remote_server + ' '
+    def scpCmdPrefix = 'scp  -o BatchMode=yes -o StrictHostKeyChecking=no -i "/var/lib/jenkins/NETS-LAB-POC-EC2-KEY.pem" '
+    def userDir = '/home/ec2-user'
+    def deployDir = userDir + '/deploy'
+    def newZipFileDir = userDir + '/releases/'+ env.CURRENT_DATETIME + '/'
+    def zip_file = app+'-' + version + '.zip';
+
+
+    //Create the folder for war file and Copy the new war file
+    sh sshCmdPrefix + 'mkdir -p ' + newZipFileDir
+    sh sshCmdPrefix + 'mkdir -p ' + deployDir
+    sh scpCmdPrefix + 'XBorder\\ Modules/'+ app +'/build/distributions/'+  zip_file + ' ec2-user@'+ remote_server + ':' + newZipFileDir
+    sh scpCmdPrefix + 'XBorderGW/auto_deployment_script_xb.sh  ec2-user@'+ remote_server + ':' + deployDir
+
+    echo zip_file +" copied successfully to " + remote_server
+
+    sh sshCmdPrefix + ' sh  '+ userDir +'/deploy/auto_deployment_script_xb.sh '+app +' '+ version + ' ' + env.CURRENT_DATETIME
+    failOnError: false
+}

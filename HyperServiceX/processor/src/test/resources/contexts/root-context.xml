@@ -1,0 +1,486 @@
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:int="http://www.springframework.org/schema/integration"
+       xmlns:stream="http://www.springframework.org/schema/integration/stream"
+       xmlns:inp="http://www.springframework.org/schema/integration"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context.xsd
+http://www.springframework.org/schema/util
+http://www.springframework.org/schema/util/spring-util.xsd
+http://www.springframework.org/schema/integration
+http://www.springframework.org/schema/integration/spring-integration.xsd
+http://www.springframework.org/schema/integration/stream
+http://www.springframework.org/schema/integration/stream/spring-integration-stream.xsd">
+
+    <context:annotation-config/>
+    <context:component-scan base-package="com.bcs.xborder.processor"/>
+    <context:component-scan base-package="com.bcs.xborder.model"/>
+    <context:property-placeholder location="classpath:application.properties"/>
+    <util:properties id="properties" location="classpath:application-${spring.profiles.active}.properties"/>
+    <!--
+        <bean id="securityProperties" class="EncryptedPropertiesFactoryBean">
+            <property name="location" value="classpath:security.properties"/>
+        </bean>-->
+
+    <bean id="appProp" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" >
+        <property value="true" name="ignoreUnresolvablePlaceholders"/>
+        <property value="$APP{" name="placeholderPrefix"/>
+        <property name="properties" ref="properties"/>
+    </bean>
+
+    <!--    task executor definitions-->
+    <bean id="safThreadExecutor"
+          class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+        <property name="corePoolSize" value="$APP{safThreadExecutor.corePoolSize}"/>
+        <property name="maxPoolSize" value="$APP{safThreadExecutor.maxPoolSize}"/>
+        <property name="queueCapacity" value="$APP{safThreadExecutor.queueCapacity}"/>
+        <property name="WaitForTasksToCompleteOnShutdown" value="true"/>
+    </bean>
+    <bean id="creditTransferTaskReqExecutor"
+          class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+        <property name="corePoolSize" value="$APP{creditTransferTaskExecutor.corePoolSize}"/>
+        <property name="maxPoolSize" value="$APP{creditTransferTaskExecutor.maxPoolSize}"/>
+        <property name="queueCapacity" value="$APP{creditTransferTaskExecutor.queueCapacity}"/>
+        <property name="WaitForTasksToCompleteOnShutdown" value="true"/>
+    </bean>
+    <bean id="xbCreditTransferTaskReqExecutor"
+          class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+        <property name="corePoolSize" value="$APP{xbCreditTransferTaskReqExecutor.corePoolSize}"/>
+        <property name="maxPoolSize" value="$APP{xbCreditTransferTaskReqExecutor.maxPoolSize}"/>
+        <property name="queueCapacity" value="$APP{xbCreditTransferTaskReqExecutor.queueCapacity}"/>
+        <property name="WaitForTasksToCompleteOnShutdown" value="true"/>
+    </bean>
+    <bean id="echoTaskReqExecutor"
+          class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+        <property name="corePoolSize" value="$APP{echoTaskExecutor.corePoolSize}"/>
+        <property name="maxPoolSize" value="$APP{echoTaskExecutor.maxPoolSize}"/>
+        <property name="queueCapacity" value="$APP{echoTaskExecutor.queueCapacity}"/>
+        <property name="WaitForTasksToCompleteOnShutdown" value="true"/>
+    </bean>
+    <bean id="paymentReversalTaskExecutor"
+          class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+        <property name="corePoolSize" value="$APP{paymentReversalTaskExecutor.corePoolSize}"/>
+        <property name="maxPoolSize" value="$APP{paymentReversalTaskExecutor.maxPoolSize}"/>
+        <property name="queueCapacity" value="$APP{paymentReversalTaskExecutor.queueCapacity}"/>
+        <property name="WaitForTasksToCompleteOnShutdown" value="true"/>
+    </bean>
+    <bean id="paymentCancelResTaskReqExecutor"
+          class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+        <property name="corePoolSize" value="$APP{paymentCancelResTaskReqExecutor.corePoolSize}"/>
+        <property name="maxPoolSize" value="$APP{paymentCancelResTaskReqExecutor.maxPoolSize}"/>
+        <property name="queueCapacity" value="$APP{paymentCancelResTaskReqExecutor.queueCapacity}"/>
+        <property name="WaitForTasksToCompleteOnShutdown" value="true"/>
+    </bean>
+<!--    <bean id="creditTransferTimeoutTaskReqExecutor"-->
+<!--          class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">-->
+<!--        <property name="corePoolSize" value="$APP{creditTransferTimeoutTaskExecutor.corePoolSize}"/>-->
+<!--        <property name="maxPoolSize" value="$APP{creditTransferTimeoutTaskExecutor.maxPoolSize}"/>-->
+<!--        <property name="queueCapacity" value="$APP{creditTransferTimeoutTaskExecutor.queueCapacity}"/>-->
+<!--        <property name="WaitForTasksToCompleteOnShutdown" value="true"/>-->
+<!--    </bean>-->
+    <bean id="transactionalMessageInRoutingTaskExecutor"
+          class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+        <property name="corePoolSize" value="$APP{transactionalMessageInRoutingTaskExecutor.corePoolSize}"/>
+        <property name="maxPoolSize" value="$APP{transactionalMessageInRoutingTaskExecutor.maxPoolSize}"/>
+        <property name="queueCapacity" value="$APP{transactionalMessageInRoutingTaskExecutor.queueCapacity}"/>
+        <property name="WaitForTasksToCompleteOnShutdown" value="true"/>
+    </bean>
+    <bean id="adminMessageInRoutingTaskExecutor"
+          class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+        <property name="corePoolSize" value="$APP{adminMessageInRoutingTaskExecutor.corePoolSize}"/>
+        <property name="maxPoolSize" value="$APP{adminMessageInRoutingTaskExecutor.maxPoolSize}"/>
+        <property name="queueCapacity" value="$APP{adminMessageInRoutingTaskExecutor.queueCapacity}"/>
+        <property name="WaitForTasksToCompleteOnShutdown" value="true"/>
+    </bean>
+    <bean id="operationalMessageInRoutingTaskExecutor"
+          class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+        <property name="corePoolSize" value="$APP{operationalMessageInRoutingTaskExecutor.corePoolSize}"/>
+        <property name="maxPoolSize" value="$APP{operationalMessageInRoutingTaskExecutor.maxPoolSize}"/>
+        <property name="queueCapacity" value="$APP{operationalMessageInRoutingTaskExecutor.queueCapacity}"/>
+        <property name="WaitForTasksToCompleteOnShutdown" value="true"/>
+    </bean>
+
+    <!--error channel definitions-->
+    <int:channel id="creditTransferErrorChannel"/>
+    <int:channel id="xbCreditTransferErrorChannel"/>
+    <int:channel id="paymentStatusPaymentReversalErrorChannel"/>
+    <int:channel id="paymentReversalErrorChannel"/>
+    <int:channel id="directDebitReversalErrorChannel"/>
+    <int:channel id="paymentCancelErrorChannel"/>
+    <int:channel id="proxyLookUpErrorChannel"/>
+    <int:channel id="adminRejectErrorChannel"/>
+    <int:channel id="echoErrorChannel"/>
+    <int:channel id="signOnErrorChannel"/>
+    <int:channel id="signOffErrorChannel"/>
+    <int:channel id="snmErrorChannel"/>
+    <int:channel id="boErrorChannel"/>
+    <int:channel id="tLogFileErrorChannel"/>
+
+    <int:channel id="cacheRefreshErrorChannel"/>
+    <int:channel id="mqaStatusErrorChannel"/>
+    <int:channel id="syncMqaTransactionUpdateErrorChannel"/>
+    <int:channel id="paymentStatusCreditTransferErrorChannel"/>
+
+    <int:channel id="unRecoverableErrorChannel"/>
+
+    <!--   common in channels and task executors mappings-->
+    <int:channel id="transactionalMessageInRoutingChannel">
+        <int:dispatcher task-executor="transactionalMessageInRoutingTaskExecutor"/>
+    </int:channel>
+    <int:channel id="operationalMessageInRoutingChannel">
+        <int:dispatcher task-executor="operationalMessageInRoutingTaskExecutor"/>
+    </int:channel>
+    <int:channel id="adminMessageInRoutingChannel">
+        <int:dispatcher task-executor="adminMessageInRoutingTaskExecutor"/>
+    </int:channel>
+
+    <int:channel id="creditTransferReqChannel">
+        <int:dispatcher task-executor="creditTransferTaskReqExecutor"/>
+    </int:channel>
+    <int:channel id="xbCreditTransferReqChannel">
+        <int:dispatcher task-executor="xbCreditTransferTaskReqExecutor"/>
+    </int:channel>
+    <inp:channel id="paymentReversalReqChannel">
+        <int:dispatcher task-executor="paymentReversalTaskExecutor"/>
+    </inp:channel>
+    <int:channel id="paymentCancelResChannel">
+        <int:dispatcher task-executor="paymentCancelResTaskReqExecutor"/>
+    </int:channel>
+    <int:channel id="echoReqChannel">
+        <!--        <int:dispatcher task-executor="echoTaskReqExecutor"/>-->
+        <int:dispatcher task-executor="adminMessageInRoutingTaskExecutor"/>
+    </int:channel>
+    <int:channel id="echoResChannel">
+        <!--        <int:dispatcher task-executor="echoTaskReqExecutor"/>-->
+        <int:dispatcher task-executor="adminMessageInRoutingTaskExecutor"/>
+    </int:channel>
+    <int:channel id="signOnResChannel">
+        <!--        <int:dispatcher task-executor="signOnTaskReqExecutor"/>-->
+        <int:dispatcher task-executor="adminMessageInRoutingTaskExecutor"/>
+    </int:channel>
+    <int:channel id="signOffResChannel">
+        <!--        <int:dispatcher task-executor="signOffTaskReqExecutor"/>-->
+        <int:dispatcher task-executor="adminMessageInRoutingTaskExecutor"/>
+    </int:channel>
+    <int:channel id="signOnReqChannel">
+        <!--        <int:dispatcher task-executor="signOffTaskReqExecutor"/>-->
+        <int:dispatcher task-executor="adminMessageInRoutingTaskExecutor"/>
+    </int:channel>
+    <int:channel id="signOffReqChannel">
+        <!--        <int:dispatcher task-executor="signOffTaskReqExecutor"/>-->
+        <int:dispatcher task-executor="adminMessageInRoutingTaskExecutor"/>
+    </int:channel>
+    <int:channel id="boReqChannel">
+        <!--        <int:dispatcher task-executor="boTaskReqExecutor"/>-->
+        <int:dispatcher task-executor="operationalMessageInRoutingTaskExecutor"/>
+    </int:channel>
+    <int:channel id="tLogChannel">
+        <int:dispatcher task-executor="operationalMessageInRoutingTaskExecutor"/>
+        <!--        <int:dispatcher task-executor="tLogFileExecutor"/>-->
+    </int:channel>
+<!--    <int:channel id="creditTransferTimeoutReqChannel">-->
+<!--        <int:dispatcher task-executor="creditTransferTimeoutTaskReqExecutor"/>-->
+<!--    </int:channel>-->
+    <int:channel id="mAdapterStatusChannel">
+        <!--        <int:dispatcher task-executor="mqAdapterStatusTaskReqExecutor"/>-->
+        <int:dispatcher task-executor="adminMessageInRoutingTaskExecutor"/>
+    </int:channel>
+    <!--    <int:channel id="processorStatusChannel">-->
+    <!--        <int:dispatcher task-executor="processorStatusTaskReqExecutor"/>-->
+    <!--    </int:channel>-->
+    <int:channel id="snmChannel">
+        <!--        <int:dispatcher task-executor="snmTaskReqExecutor"/>-->
+        <int:dispatcher task-executor="adminMessageInRoutingTaskExecutor"/>
+    </int:channel>
+    <int:channel id="adminRejectChannel">
+        <!--        <int:dispatcher task-executor="snmTaskReqExecutor"/>-->
+        <int:dispatcher task-executor="adminMessageInRoutingTaskExecutor"/>
+    </int:channel>
+    <!--    <int:channel id="rawLogChannel">-->
+    <!--        <int:dispatcher task-executor="rawLogTaskReqExecutor"/>-->
+    <!--    </int:channel>-->
+    <int:channel id="syncMqaTransactionChannel">
+        <!--        <int:dispatcher task-executor="syncMqaTransactionTaskReqExecutor"/>-->
+        <int:dispatcher task-executor="operationalMessageInRoutingTaskExecutor"/>
+    </int:channel>
+    <int:channel id="cacheRefreshChannel">
+        <!--        <int:dispatcher task-executor="cacheRefreshTaskReqExecutor"/>-->
+        <int:dispatcher task-executor="operationalMessageInRoutingTaskExecutor"/>
+    </int:channel>
+
+    <stream:stderr-channel-adapter channel="errorChannel" append-newline="true" auto-startup="true"/>
+
+<!--    <int:chain input-channel="transactionalMessageInRoutingChannel" output-channel="transactionalMessageInRoutingResultChannel">-->
+<!--        <int:header-enricher>-->
+<!--            <int:error-channel ref="unRecoverableErrorChannel" overwrite="true"/>-->
+<!--        </int:header-enricher>-->
+<!--        <int:service-activator ref="transactionalMessageInRoutingService" method="execute"/>-->
+<!--    </int:chain>-->
+
+<!--    <int:chain input-channel="operationalMessageInRoutingChannel" output-channel="operationalMessageInRoutingResultChannel">-->
+<!--        <int:header-enricher>-->
+<!--            <int:error-channel ref="unRecoverableErrorChannel" overwrite="true"/>-->
+<!--        </int:header-enricher>-->
+<!--        <int:service-activator ref="operationalMessageInRoutingService" method="execute"/>-->
+<!--    </int:chain>-->
+
+<!--    <int:chain input-channel="adminMessageInRoutingChannel" output-channel="adminMessageInRoutingResultChannel">-->
+<!--        <int:header-enricher>-->
+<!--            <int:error-channel ref="unRecoverableErrorChannel" overwrite="true"/>-->
+<!--        </int:header-enricher>-->
+<!--        <int:service-activator ref="adminMessageInRoutingService" method="execute"/>-->
+<!--    </int:chain>-->
+
+    <int:header-value-router input-channel="transactionalMessageInRoutingChannel" header-name="MESSAGE_TYPE">
+        <int:mapping value="CREDIT_TRANSFER_IN" channel="creditTransferReqChannel"/>
+        <int:mapping value="PAYMENT_REVERSAL_IN" channel="paymentReversalReqChannel"/>
+        <int:mapping value="PAYMENT_STATUS_IN_OR_REVERSE_CREDIT_PAYMENT_STATUS_IN" channel="paymentStatusInChannel"/>
+        <int:mapping value="PAYMENT_CANCELLATION_IN" channel="paymentCancelReqChannel"/>
+        <int:mapping value="XB_CREDIT_TRANSFER_IN" channel="xbCreditTransferReqChannel"/>
+        <int:mapping value="XB_PAYMENT_STATUS_IN" channel="xbPaymentStatusResChannel"/>
+    </int:header-value-router>
+
+    <int:header-value-router input-channel="adminMessageInRoutingChannel" header-name="MESSAGE_TYPE">
+        <int:mapping value="FAST_ECHO_REQ_IN" channel="echoReqChannel"/>
+        <int:mapping value="FAST_ECHO_RES_IN" channel="echoResChannel"/>
+        <int:mapping value="CAS_ECHO_RES_IN" channel="echoResChannel"/>
+        <int:mapping value="FAST_SIGN_ON_RES_IN" channel="signOnResChannel"/>
+        <int:mapping value="FAST_SIGN_OFF_RES_IN" channel="signOffResChannel"/>
+        <int:mapping value="MA_STATUS" channel="mAdapterStatusChannel"/>
+        <int:mapping value="SNM_IN" channel="snmChannel"/>
+        <int:mapping value="FAST_ADMIN_REJECT_IN" channel="adminRejectChannel"/>
+        <int:mapping value="CAS_ADMIN_REJECT_IN" channel="adminRejectChannel"/>
+    </int:header-value-router>
+
+
+    <int:header-value-router input-channel="operationalMessageInRoutingChannel" header-name="MESSAGE_TYPE">
+        <int:mapping value="BO_UPDATE" channel="boReqChannel"/>
+        <int:mapping value="BO_SIGN_ON_IN" channel="boReqChannel"/>
+        <int:mapping value="BO_SIGN_OFF_IN" channel="boReqChannel"/>
+        <int:mapping value="BO_EP_STATUS_IN" channel="boReqChannel"/>
+        <int:mapping value="BO_API_KEY_CREATE_IN" channel="boReqChannel"/>
+        <int:mapping value="BO_API_KEY_DELETE_IN" channel="boReqChannel"/>
+        <int:mapping value="BO_API_KEY_GET_IN" channel="boReqChannel"/>
+        <int:mapping value="BO_API_END_POINT_CREATE_IN" channel="boReqChannel"/>
+        <int:mapping value="BO_API_END_POINT_DELETE_IN" channel="boReqChannel"/>
+        <int:mapping value="BO_API_END_POINT_GET_IN" channel="boReqChannel"/>
+        <int:mapping value="BO_TRS_STATUS_IN" channel="boReqChannel"/>
+        <int:mapping value="T_LOG" channel="tLogChannel"/>
+
+        <int:mapping value="XB_LOOKUP_REQ_IN" channel="tLogFileChannel"/>
+        <int:mapping value="XB_LOOKUP_RES_IN" channel="tLogFileChannel"/>
+        <int:mapping value="XB_LOOKUP_REQ_OUT" channel="tLogFileChannel"/>
+        <int:mapping value="XB_LOOKUP_RES_OUT" channel="tLogFileChannel"/>
+        <int:mapping value="LOOKUP_AUDIT" channel="lookUpAuditRoutingChannel"/>
+
+        <int:mapping value="UD_T_LOG" channel="tLogFileChannel"/>
+        <int:mapping value="XBCT_T_LOG" channel="tLogFileChannel"/>
+        <int:mapping value="RCT_T_LOG" channel="tLogFileChannel"/>
+        <int:mapping value="CACHE_REFRESH" channel="cacheRefreshChannel"/>
+        <int:mapping value="OPR_ARCHIVE_REQ_IN" channel="boReqChannel"/>
+
+    </int:header-value-router>
+
+    <!--Special Case: TLOGFile message for proxy lookup audit will be used to persist the same message in both tlog file and in ignite.-->
+    <int:recipient-list-router input-channel="lookUpAuditRoutingChannel">
+        <int:recipient channel="tLogFileChannel"  selector-expression="true"/>
+        <int:recipient channel="proxyLookUpChannel"  selector-expression="true"/>
+    </int:recipient-list-router>
+
+    <int:chain input-channel="cacheRefreshChannel">
+        <int:header-enricher>
+            <int:error-channel ref="cacheRefreshErrorChannel" overwrite="true"/>
+        </int:header-enricher>
+        <int:service-activator ref="globleCacheRefresher" method="execute"/>
+    </int:chain>
+
+    <int:chain input-channel="mAdapterStatusChannel">
+        <int:header-enricher>
+            <int:error-channel ref="mqaStatusErrorChannel" overwrite="true"/>
+        </int:header-enricher>
+        <int:service-activator ref="maStatusMessageProcessingService" method="execute"/>
+    </int:chain>
+
+    <int:chain input-channel="paymentStatusReqChannel" output-channel="paymentStatusResultRoutingChannel">
+        <int:header-enricher>
+            <int:error-channel ref="paymentStatusErrorChannel" overwrite="true"/>
+        </int:header-enricher>
+        <int:service-activator ref="paymentStatusProcessingInService" method="execute"/>
+    </int:chain>
+
+    <int:header-value-router input-channel="paymentStatusResultRoutingChannel" header-name="XB_PAYMENT_STATUS">
+        <int:mapping value="ACTC" channel="bankSendResponseChannel"/>
+        <int:mapping value="RJCT" channel="creditTransferFailedChannel"/>
+    </int:header-value-router>
+
+    <int:chain input-channel="paymentCancelReqChannel">
+        <int:header-enricher>
+            <int:error-channel ref="paymentCancelErrorChannel" overwrite="true"/>
+        </int:header-enricher>
+        <int:service-activator ref="paymentCancelReqProcessingService" method="execute"/>
+    </int:chain>
+    <int:chain input-channel="proxyLookUpChannel">
+        <int:header-enricher>
+            <int:error-channel ref="proxyLookUpErrorChannel" overwrite="true"/>
+        </int:header-enricher>
+        <int:service-activator ref="proxyLookUpProcessingService" method="execute"></int:service-activator>
+    </int:chain>
+
+    <int:chain input-channel="adminRejectChannel">
+        <int:header-enricher>
+            <int:error-channel ref="adminRejectErrorChannel" overwrite="true"/>
+        </int:header-enricher>
+        <int:service-activator ref="adminRejectProcessingService" method="execute"></int:service-activator>
+    </int:chain>
+
+    <int:chain input-channel="echoReqChannel">
+        <int:header-enricher>
+            <int:error-channel ref="echoErrorChannel" overwrite="true"/>
+        </int:header-enricher>
+        <int:service-activator ref="echoRequestProcessingService" method="execute"/>
+    </int:chain>
+    <int:chain input-channel="echoResChannel">
+        <int:header-enricher>
+            <int:error-channel ref="echoErrorChannel" overwrite="true"/>
+        </int:header-enricher>
+        <int:service-activator ref="echoResponseProcessingService" method="execute"/>
+    </int:chain>
+    <int:chain input-channel="signOnResChannel">
+        <int:header-enricher>
+            <int:error-channel ref="signOnErrorChannel" overwrite="true"/>
+        </int:header-enricher>
+        <int:service-activator ref="signOnResponseProcessingService" method="execute"/>
+    </int:chain>
+    <int:chain input-channel="signOffResChannel">
+        <int:header-enricher>
+            <int:error-channel ref="signOffErrorChannel" overwrite="true"/>
+        </int:header-enricher>
+        <int:service-activator ref="signOffResponseProcessingService" method="execute"/>
+    </int:chain>
+    <int:chain input-channel="snmChannel">
+        <int:header-enricher>
+            <int:error-channel ref="snmErrorChannel" overwrite="true"/>
+        </int:header-enricher>
+        <int:service-activator ref="snmResponseProcessingService" method="execute"/>
+    </int:chain>
+    <int:chain input-channel="boReqChannel">
+        <int:header-enricher>
+            <int:error-channel ref="boErrorChannel" overwrite="true"/>
+        </int:header-enricher>
+        <int:service-activator ref="boRequestProcessingService" method="execute"/>
+    </int:chain>
+    <int:chain input-channel="tLogFileChannel">
+        <int:header-enricher>
+            <int:error-channel ref="tLogFileErrorChannel" overwrite="true"/>
+        </int:header-enricher>
+        <int:service-activator ref="tLogFileProcessingService" method="execute"/>
+    </int:chain>
+    <int:chain input-channel="creditTransferReqChannel">
+        <int:header-enricher>
+            <int:error-channel ref="creditTransferErrorChannel" overwrite="true"/>
+        </int:header-enricher>
+        <int:service-activator ref="creditTransferProcessingService" method="execute"/>
+    </int:chain>
+    <int:chain input-channel="xbCreditTransferReqChannel">
+        <int:header-enricher>
+            <int:error-channel ref="xbCreditTransferErrorChannel" overwrite="true"/>
+        </int:header-enricher>
+        <int:service-activator ref="xbCreditTransferProcessingService" method="execute"/>
+    </int:chain>
+    <int:service-activator input-channel="unRecoverableErrorChannel" ref="unRecoverableErrorProcessingService" method="execute"/>
+
+<!--  ================================================================================================== -->
+<!--  ========================== Payment Status Definitions : ITMX -> DOM ============================== -->
+<!--  ================================================================================================== -->
+
+    <bean id="paymentStatusInTaskReqExecutor"
+          class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+        <property name="corePoolSize" value="$APP{paymentStatusInTaskReqExecutor.corePoolSize}"/>
+        <property name="maxPoolSize" value="$APP{paymentStatusInTaskReqExecutor.maxPoolSize}"/>
+        <property name="queueCapacity" value="$APP{paymentStatusInTaskReqExecutor.queueCapacity}"/>
+        <property name="WaitForTasksToCompleteOnShutdown" value="true"/>
+    </bean>
+
+    <bean id="xbPaymentStatusTaskReqExecutor"
+          class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+        <property name="corePoolSize" value="$APP{xbPaymentStatusTaskReqExecutor.corePoolSize}"/>
+        <property name="maxPoolSize" value="$APP{xbPaymentStatusTaskReqExecutor.maxPoolSize}"/>
+        <property name="queueCapacity" value="$APP{xbPaymentStatusTaskReqExecutor.queueCapacity}"/>
+        <property name="WaitForTasksToCompleteOnShutdown" value="true"/>
+    </bean>
+    <bean id="paymentStatusTaskReqExecutor"
+          class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+        <property name="corePoolSize" value="$APP{xbPaymentStatusTaskReqExecutor.corePoolSize}"/>
+        <property name="maxPoolSize" value="$APP{xbPaymentStatusTaskReqExecutor.maxPoolSize}"/>
+        <property name="queueCapacity" value="$APP{xbPaymentStatusTaskReqExecutor.queueCapacity}"/>
+        <property name="WaitForTasksToCompleteOnShutdown" value="true"/>
+    </bean>
+    <bean id="paymentStatusCreditTransferTaskReqExecutor"
+          class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+        <property name="corePoolSize" value="$APP{paymentStatusCreditTransferTaskExecutor.corePoolSize}"/>
+        <property name="maxPoolSize" value="$APP{paymentStatusCreditTransferTaskExecutor.maxPoolSize}"/>
+        <property name="queueCapacity" value="$APP{paymentStatusCreditTransferTaskExecutor.queueCapacity}"/>
+        <property name="WaitForTasksToCompleteOnShutdown" value="true"/>
+    </bean>
+    <bean id="xbPaymentStatusCreditTransferTaskReqExecutor"
+          class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+        <property name="corePoolSize" value="$APP{xbPaymentStatusCreditTransferTaskExecutor.corePoolSize}"/>
+        <property name="maxPoolSize" value="$APP{xbPaymentStatusCreditTransferTaskExecutor.maxPoolSize}"/>
+        <property name="queueCapacity" value="$APP{xbPaymentStatusCreditTransferTaskExecutor.queueCapacity}"/>
+        <property name="WaitForTasksToCompleteOnShutdown" value="true"/>
+    </bean>
+
+    <int:channel id="xbPaymentStatusResChannel">
+        <int:dispatcher task-executor="xbPaymentStatusTaskReqExecutor"/>
+    </int:channel>
+
+    <int:channel id="paymentStatusResChannel">
+        <int:dispatcher task-executor="xbPaymentStatusTaskReqExecutor"/>
+    </int:channel>
+
+    <int:channel id="paymentStatusInChannel">
+        <int:dispatcher task-executor="paymentStatusInTaskReqExecutor"/>
+    </int:channel>
+
+    <int:publish-subscribe-channel id="creditTransferFailedSubscribableChannel"/>
+    <int:channel id="bankSendResponseChannel"/>
+    <int:channel id="creditTransferFailedChannel"/>
+    <int:channel id="paymentStatusErrorChannel"/>
+    <int:channel id="bankSendResponseErrorChannel"/>
+    <int:channel id="paymentStatusResultRoutingChannel"/>
+    <int:channel id="paymentStatusInChannelResultRoutingChannel"/>
+
+    <int:chain input-channel="xbPaymentStatusResChannel" output-channel="paymentStatusResultRoutingChannel">
+        <int:header-enricher>
+            <int:error-channel ref="paymentStatusErrorChannel" overwrite="true"/>
+        </int:header-enricher>
+        <int:service-activator ref="xbPaymentStatusResponseRoutingService" method="execute"/>
+    </int:chain>
+
+    <int:chain input-channel="paymentStatusInChannel" output-channel="paymentStatusInChannelResultRoutingChannel">
+        <int:header-enricher>
+            <int:error-channel ref="paymentStatusErrorChannel" overwrite="true"/>
+        </int:header-enricher>
+        <int:service-activator ref="paymentStatusProcessingInService" method="execute"/>
+    </int:chain>
+
+    <int:bridge input-channel="creditTransferFailedChannel" output-channel="creditTransferFailedSubscribableChannel"/>
+
+    <int:chain input-channel="bankSendResponseChannel">
+        <int:header-enricher>
+            <int:error-channel ref="bankSendResponseErrorChannel" overwrite="true"/>
+        </int:header-enricher>
+        <int:service-activator ref="bankResponseSendingService" method="execute"/>
+    </int:chain>
+
+    <int:service-activator input-channel="creditTransferFailedSubscribableChannel" ref="bankResponseSendingService" method="execute"/>
+    <int:service-activator input-channel="creditTransferFailedSubscribableChannel" ref="reverseCreditRequestSendingService" method="execute"/>
+
+    <!--TODO :: Remove-->
+    <int:logging-channel-adapter id="logger" log-full-message="true" level="INFO"/>
+
+</beans>

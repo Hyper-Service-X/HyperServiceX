@@ -1,0 +1,114 @@
+[
+  {
+    "header": {
+      "fromMemId": "DEUTSGSGXXX",
+      "toMemId": "SACHSGS1XXX",
+      "bizMsgIdr": "B20190313SACHSGS1HAN8875070",
+      "msgDefIdr": "pacs.002.001.03",
+      "headerCrtDate": "2019-03-07T16:49:49.367"
+    },
+    "msgId": "20190313023046DEUTSGSGFAAN1H5RX6",
+    "creDtTm": "2019-03-13T10:30:46.014",
+    "orgMsg": {
+      "orgnlMsgId": "20190313023045ABNASGSGFAAN1H3S7P",
+      "orgnlMsgNmId": "pacs.008.001.02",
+      "orgnlCreDtTm": "2019-03-13T10:30:35.839",
+      "orgnlNbOfTxs": "1"
+    },
+    "paymentStatusRecords": [
+      {
+        "orgnlInstrId": "20191031AABKSGS0BRT0195830",
+        "txSts": "ACTC",
+        "accptncDtTm": "2019-03-13T10:30:46.014",
+        "clrSysRef": "002",
+        "instgMmbId": "AABKSGS0XXX",
+        "instdMmbId": "DBSSSGS0XXX",
+        "orgnlTxRef": "2019-02-25"
+      }
+    ]
+  },
+  {
+    "header": {
+      "fromMemId": "DEUTSGSGXXX",
+      "toMemId": "SACHSGS1XXX",
+      "bizMsgIdr": "B20190313SACHSGS1HAN8875070",
+      "msgDefIdr": "pacs.002.001.03",
+      "headerCrtDate": "2019-03-07T16:49:49.367"
+    },
+    "msgId": "20190313023046DEUTSGSGFAAN1H5RX6",
+    "creDtTm": "2019-03-13T10:30:46.014",
+    "orgMsg": {
+      "orgnlMsgId": "20190313023045ABNASGSGFAAN1H3S7P",
+      "orgnlMsgNmId": "pacs.008.001.02",
+      "orgnlCreDtTm": "2019-03-13T10:30:35.839",
+      "orgnlNbOfTxs": "1"
+    },
+    "paymentStatusRecords": [
+      {
+        "orgnlInstrId": "",
+        "txSts": "ACTC",
+        "accptncDtTm": "2019-03-13T10:30:46.014",
+        "clrSysRef": "002",
+        "instgMmbId": "ABNASGSGXXX",
+        "instdMmbId": "DEUTSGSGXXX",
+        "orgnlTxRef": "2019-02-25"
+      }
+    ]
+  },
+  {
+    "header": {
+      "fromMemId": "DEUTSGSGXXX",
+      "toMemId": "SACHSGS1XXX",
+      "bizMsgIdr": "B20190313SACHSGS1HAN8875070",
+      "msgDefIdr": "pacs.002.001.03",
+      "headerCrtDate": "2019-03-07T16:49:49.367"
+    },
+    "msgId": "20190313023046DEUTSGSGFAAN1H5RX6",
+    "creDtTm": "2019-03-13T10:30:46.014",
+    "orgMsg": {
+      "orgnlMsgId": "20190313023045ABNASGSGFAAN1H3S7P",
+      "orgnlMsgNmId": "pacs.008.001.02",
+      "orgnlCreDtTm": "2019-03-13T10:30:35.839",
+      "orgnlNbOfTxs": "1"
+    },
+    "paymentStatusRecords": [
+      {
+        "orgnlInstrId": "",
+        "txSts": "ACTC",
+        "accptncDtTm": "2019-03-13T10:30:46.014",
+        "clrSysRef": "002",
+        "instgMmbId": "ABNASGSGXXX",
+        "instdMmbId": "DEUTSGSGXXX",
+        "orgnlTxRef": "2019-02-25"
+      }
+    ]
+  },
+  {
+    "header": {
+      "fromMemId": "DEUTSGSGXXX",
+      "toMemId": "SACHSGS1XXX",
+      "bizMsgIdr": "B20190313SACHSGS1HAN8875070",
+      "msgDefIdr": "pacs.002.001.03",
+      "headerCrtDate": "2019-03-07T16:49:49.367"
+    },
+    "msgId": "20190313023046DEUTSGSGFAAN1H5RX6",
+    "creDtTm": "2019-03-13T10:30:46.014",
+    "orgMsg": {
+      "orgnlMsgId": "20190313023045ABNASGSGFAAN1H3S7P",
+      "orgnlMsgNmId": "pacs.008.001.02",
+      "orgnlCreDtTm": "2019-03-13T10:30:35.839",
+      "orgnlNbOfTxs": "1"
+    },
+    "paymentStatusRecords": [
+      {
+        "orgnlInstrId": "",
+        "txSts": "ACTC",
+        "accptncDtTm": "2019-03-13T10:30:46.014",
+        "clrSysRef": "002",
+        "instgMmbId": "ABNASGSGXXX",
+        "instdMmbId": "DEUTSGSGXXX",
+        "orgnlTxRef": "2019-02-25"
+      }
+    ]
+  }
+]

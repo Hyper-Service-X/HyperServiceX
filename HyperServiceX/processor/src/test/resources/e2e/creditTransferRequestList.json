@@ -1,0 +1,54 @@
+[
+  {
+    "header": {
+      "fromMemId": "AABKSGS0XXX",
+      "toMemId": "SACHSGS1XXX",
+      "bizMsgIdr": "B20191031AABKSGS0BRT352063321",
+      "msgDefIdr": "pacs.008.001.02",
+      "headerCrtDate": "2019-10-31T07:04:48Z",
+      "duplicateCode": null,
+      "instrId": "20191031AABKSGS0BRT0195830",
+      "mqaRecNodeSiteNo": 1,
+      "intTarSiteNo": 1,
+      "actTarSiteNo": 1,
+      "startTime": 1572505489105,
+      "initTime": 0,
+      "correlationId": "5B42403261393936396531",
+      "instrgMemberSiteNumber": 1,
+      "instrdMemberSiteNumber": 0,
+      "recQueueName": "AABKSGS0_MQ1.REQUEST.TO.G3_MQ1",
+      "resQueueName": "AABKSGS0_MQ1.RESPONSE.FROM.G3_MQ1",
+      "resQueueManagerName": "PG3RT1",
+      "receiveOrSentTime": "1572505489104",
+      "fromMemberQueue": "AABKSGS0XXX"
+    },
+    "msgId": "M20191031AABKSGS0BRT352063321",
+    "msgCreDtTm": "2019-10-31T15:04:48.891",
+    "nbOfTxs": "1",
+    "totlIntrBkSttlmAmt": 200,
+    "currency": "SGD",
+    "sttlmMtd": "CLRG",
+    "clrSys": "MEP",
+    "creditTransferTxns": [
+      {
+        "instrId": "20191031AABKSGS0BRT0195830",
+        "endToEndId": "20191031AABKSGS0BRT0195830",
+        "txId": "20191031AABKSGS0BRT0195830",
+        "intrBkSttlmAmt": 200,
+        "currency": "SGD",
+        "instgAgtMmbId": "AABKSGS0XXX",
+        "instdAgtMmbId": "DBSSSGS0XXX",
+        "dbtrNm": "Charan Duck",
+        "dbtrAcctId": "SGAABK75175447483687060843997029",
+        "dbtrAgtMmbId": "AABKSGS0XXX",
+        "cdtrAgtMmbId": "DBSSSGS0XXX",
+        "cdtrNm": "James Duck",
+        "cdtrAcctId": "SGDBSS11300435164739719399834459",
+        "purp": "ACCT",
+        "rmtInf": "[TEST]",
+        "svcLvlCd": "SDVA",
+        "chrgBr": "SLEV"
+      }
+    ]
+  }
+]

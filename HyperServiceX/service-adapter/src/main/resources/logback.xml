@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- Send debug messages to System.out -->
+    <springProperty scope="context" name="NODE_NAME" source="NODE.NAME"/>
+    <property name="PROJECT_NAME" value="XB" />
+    <!-- Send debug messages to System.out -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- By default, encoders are assigned the type ch.qos.logback.classic.encoder.PatternLayoutEncoder -->
+
+<!--        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">-->
+<!--            <layout class="ch.qos.logback.contrib.json.classic.JsonLayout">-->
+<!--                <jsonFormatter class="ch.qos.logback.contrib.jackson.JacksonJsonFormatter"/>-->
+<!--                <appendLineSeparator>true</appendLineSeparator>-->
+<!--                <timestampFormat>yyyy-MM-dd'T'HH:mm:ss.SSSX</timestampFormat>-->
+<!--            </layout>-->
+
+        <encoder>
+            <pattern>%d{yyyy-MM-dd_HH:mm:ss.SSS} [%thread] ${PROJECT_NAME}_${NODE_NAME} %-5level %logger{5} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <property resource="application.properties"/>
+
+    <appender name="FILE"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/hyperServiceX/app/logs/message-adapter/app.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d{yyyy-MM-dd_HH:mm:ss.SSS} [%thread] ${PROJECT_NAME}_${NODE_NAME} %-5level %logger{36} - %msg%n</Pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>/hyperServiceX/app/logs/message-adapter/app.%d{yyyy-MM-dd}.log.zip</FileNamePattern>
+            <maxHistory>7</maxHistory>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+
+
+    <appender name="ECHO_LOG_APPENDER"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/hyperServiceX/app/logs/message-adapter/echo.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d{yyyy-MM-dd_HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>/hyperServiceX/app/logs/message-adapter/echo.%d{yyyy-MM-dd_HH}.log.zip</FileNamePattern>
+            <maxHistory>7</maxHistory>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+
+<!--    @@@@@@@SERVICE_REGISTRY-->
+    <appender name="SERVICE_REGISTRY_LOG_APPENDER"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/hyperServiceX/app/logs/message-adapter/serviceRegistry.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d{yyyy-MM-dd_HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>/hyperServiceX/app/logs/message-adapter/serviceRegistry.%d{yyyy-MM-dd_HH}.log.zip</FileNamePattern>
+            <maxHistory>7</maxHistory>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="SOLACE_LOG_APPENDER"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/hyperServiceX/app/logs/message-adapter/solace.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d{yyyy-MM-dd_HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>/hyperServiceX/app/logs/message-adapter/solace.%d{yyyy-MM-dd_HH}.log.zip</FileNamePattern>
+            <maxHistory>7</maxHistory>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="CACHE_DATA_LOG_APPENDER"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/hyperServiceX/app/logs/message-adapter/cacheData.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d{yyyy-MM-dd_HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>/hyperServiceX/app/logs/message-adapter/cacheData.%d{yyyy-MM-dd_HH}.log.zip</FileNamePattern>
+            <maxHistory>7</maxHistory>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+
+
+    <appender name="DOM_RAW_LOG_APPENDER"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/hyperServiceX/app/logs/message-adapter/dom_raw.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d{yyyy-MM-dd_HH:mm:ss.SSS}%msg%n</Pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>/hyperServiceX/app/logs/message-adapter/dom_raw.%d{yyyy-MM-dd_HH}.log.zip</FileNamePattern>
+            <maxHistory>200</maxHistory>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="XB_RAW_LOG_APPENDER"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/hyperServiceX/app/logs/message-adapter/xb_raw.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d{yyyy-MM-dd_HH:mm:ss.SSS}%msg%n</Pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>/hyperServiceX/app/logs/message-adapter/xb_raw.%d{yyyy-MM-dd_HH}.log.zip</FileNamePattern>
+            <maxHistory>200</maxHistory>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+    <appender name="MONITOR_LOG_APPENDER"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/hyperServiceX/app/logs/message-adapter/monitor.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d{yyyy-MM-dd_HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>/hyperServiceX/app/logs/message-adapter/monitor.%d{yyyy-MM-dd_HH}.log.zip</FileNamePattern>
+            <maxHistory>7</maxHistory>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+    <appender name="XBLKRQ_TLOG_APPENDER"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/hyperServiceX/app/logs/message-adapter/xblkrqTLog.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d{yyyy-MM-dd_HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>/hyperServiceX/app/logs/message-adapter/xlkrqinTLog.%d{yyyy-MM-dd_HH}.log.zip</FileNamePattern>
+            <maxHistory>200</maxHistory>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+    <appender name="XBLKRS_TLOG_APPENDER"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/hyperServiceX/app/logs/message-adapter/xblkrsTLog.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d{yyyy-MM-dd_HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>/hyperServiceX/app/logs/message-adapter/xlkrsinTLog.%d{yyyy-MM-dd_HH}.log.zip</FileNamePattern>
+            <maxHistory>200</maxHistory>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+    <appender name="LKUPAUDT_TLOG_APPENDER"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/hyperServiceX/app/logs/message-adapter/lkupauditTLog.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d{yyyy-MM-dd_HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>/hyperServiceX/app/logs/message-adapter/lkupauditTLog.%d{yyyy-MM-dd_HH}.log.zip</FileNamePattern>
+            <maxHistory>200</maxHistory>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="XBLKRQ_TLOG_FILE_APPENDER"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/hyperServiceX/app/logs/message-adapter/xblkrqTLogFile.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d{yyyy-MM-dd_HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>/hyperServiceX/app/logs/message-adapter/xlkrqinTLogFile.%d{yyyy-MM-dd_HH}.log.zip</FileNamePattern>
+            <maxHistory>200</maxHistory>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+    <appender name="XBLKRS_TLOG_FILE_APPENDER"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/hyperServiceX/app/logs/message-adapter/xblkrsTLogFile.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d{yyyy-MM-dd_HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>/hyperServiceX/app/logs/message-adapter/xlkrsinTLogFile.%d{yyyy-MM-dd_HH}.log.zip</FileNamePattern>
+            <maxHistory>200</maxHistory>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+    <appender name="LKUPAUDT_TLOG_FILE_APPENDER"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/hyperServiceX/app/logs/message-adapter/lkupauditTLogFile.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d{yyyy-MM-dd_HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>/hyperServiceX/app/logs/message-adapter/lkupauditTLogFile.%d{yyyy-MM-dd_HH}.log.zip</FileNamePattern>
+            <maxHistory>200</maxHistory>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="kafka-appender" class="com.github.danielwegener.logback.kafka.KafkaAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{yyyy/MM/dd-HH:mm:ss.SSS},${HOST-NAME},%thread,%-4level,%msg%n</pattern>
+        </encoder>
+        <topic>raw-logs</topic>
+        <!-- we don't care how the log messages will be partitioned  -->
+        <keyingStrategy class="com.github.danielwegener.logback.kafka.keying.NoKeyKeyingStrategy"/>
+
+
+        <!-- use async delivery. the application threads are not blocked by logging -->
+        <deliveryStrategy class="com.github.danielwegener.logback.kafka.delivery.AsynchronousDeliveryStrategy"/>
+
+
+        <!-- each <producerConfig> translates to regular kafka-client config (format: key=value) -->
+        <!-- producer configs are documented here: https://kafka.apache.org/documentation.html#newproducerconfigs -->
+        <!-- bootstrap.servers is the only mandatory producerConfig -->
+        <producerConfig>bootstrap.servers=${KAFKA.BOOTSTRAP.SERVERS.SITE1}</producerConfig>
+        <!-- don't wait for a broker to ack the reception of a batch.  -->
+        <producerConfig>acks=0</producerConfig>
+        <!-- wait up to 1000ms and collect log messages before sending them as a batch -->
+        <producerConfig>linger.ms=1000</producerConfig>
+        <!-- even if the producer buffer runs full, do not block the application but start to drop messages -->
+        <producerConfig>max.block.ms=0</producerConfig>
+        <!-- define a client-id that you use to identify yourself against the kafka broker -->
+        <producerConfig>client.id=logback-relaxed</producerConfig>
+
+
+        <!-- there is no fallback <appender-ref>. If this appender cannot deliver, it will drop its messages. -->
+
+
+        <!-- this is the fallback appender if kafka is not available. -->
+        <appender-ref ref="STDOUT"/>
+    </appender>
+
+    <appender name="JUNIT_APPENDER"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/hyperServiceX/app/logs/message-adapter/junit_test.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d{yyyy-MM-dd_HH:mm:ss.SSS} [%-5level %logger{0} - %msg%n</Pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>/hyperServiceX/app/logs/message-adapter/junit_test.%d{yyyy-MM-dd}.log.zip</FileNamePattern>
+            <maxHistory>7</maxHistory>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+    <logger name="org.apache.kafka" level="WARN"/>
+    <logger name="org.apache.kafka.common.metrics" level="WARN"/>
+    <logger name="DOM_RAW_LOG" additivity="true">
+        <level value="INFO"/>
+        <appender-ref ref="DOM_RAW_LOG_APPENDER"/>
+    </logger>
+    <logger name="XB_RAW_LOG" additivity="false">
+        <level value="INFO"/>
+        <appender-ref ref="XB_RAW_LOG_APPENDER"/>
+    </logger>
+    <logger name="MONITOR_LOG" additivity="false">
+        <level value="INFO"/>
+        <appender-ref ref="MONITOR_LOG_APPENDER"/>
+    </logger>
+
+    <logger name="JUNIT_LOG" additivity="false">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="JUNIT_APPENDER"/>
+    </logger>
+
+    <logger name="ECHO_LOG" additivity="false">
+        <level value="INFO"/>
+        <appender-ref ref="ECHO_LOG_APPENDER"/>
+    </logger>
+    <logger name="SERVICE_REGISTRY_LOG" additivity="false">
+        <level value="INFO"/>
+        <appender-ref ref="SERVICE_REGISTRY_LOG_APPENDER"/>
+    </logger>
+    <logger name="SOLACE_LOG" additivity="true">
+        <level value="INFO"/>
+        <appender-ref ref="SOLACE_LOG_APPENDER"/>
+    </logger>
+    <logger name="CACHE_DATA_LOG" additivity="false">
+        <level value="INFO"/>
+        <appender-ref ref="CACHE_DATA_LOG_APPENDER"/>
+    </logger>
+    <logger name="XBLKRQ_TLOG" additivity="true">
+        <level value="INFO"/>
+        <appender-ref ref="XBLKRQ_TLOG_APPENDER"/>
+    </logger>
+    <logger name="XBLKRS_TLOG" additivity="true">
+        <level value="INFO"/>
+        <appender-ref ref="XBLKRS_TLOG_APPENDER"/>
+    </logger>
+    <logger name="LKUPAUDT_TLOG" additivity="true">
+        <level value="INFO"/>
+        <appender-ref ref="LKUPAUDT_TLOG_APPENDER"/>
+    </logger>
+
+    <logger name="XBLKRQ_TLOG_FILE" additivity="true">
+        <level value="INFO"/>
+        <appender-ref ref="XBLKRQ_TLOG_FILE_APPENDER"/>
+    </logger>
+    <logger name="XBLKRS_TLOG_FILE" additivity="true">
+        <level value="INFO"/>
+        <appender-ref ref="XBLKRS_TLOG_FILE_APPENDER"/>
+    </logger>
+    <logger name="LKUPAUDT_TLOG_FILE" additivity="true">
+        <level value="INFO"/>
+        <appender-ref ref="LKUPAUDT_TLOG_FILE_APPENDER"/>
+    </logger>
+
+    <!-- By default, the level of the root level is set to DEBUG -->
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="FILE"/>
+    </root>
+</configuration>

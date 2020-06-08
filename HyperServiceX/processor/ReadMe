@@ -1,0 +1,22 @@
+Setup Environment Variables
+
+DEFAULT_MESSAGING_SERVICE = Default messaging service to be used. Default to 'solace'.
+
+1. To build and install distribution without test. If profile variable not passed, it will take dev by default.
+    gradle clean build distZip installDist -x test -Pprofile=dev
+    //If the profile is not given, it will uDMDatase dev by default
+
+2. To run the Processor in Ubuntu/Linux
+    ./build/install/processor/bin/processor start
+
+    To Stop
+
+    ./build/install/processor/bin/processor stop
+
+
+    To tail logs
+    tail -100f ./build/install/processor/logs/wrapper.log
+
+  To run the Processor in windows
+      .\build\install\processor\bin\processor
+

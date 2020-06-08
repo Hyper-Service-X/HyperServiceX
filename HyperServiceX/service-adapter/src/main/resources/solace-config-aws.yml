@@ -1,0 +1,25 @@
+solace:
+  default-site-no: ${NODE.SITE.NO}
+  vpn-id: 1
+  nodes:
+    - host: tcp://NXTGEN_SOLACE_S1:55555
+      msgVpn: default
+      clientUsername: default
+      clientPassword:
+      apiProperties:
+        allow-guaranteed‑message‑receive: true
+        allow‑guaranteed‑endpont-create: true
+        IGNORE_DUPLICATE_SUBSCRIPTION_ERROR: true
+    - host: tcp://NXTGEN_SOLACE_S2:55555
+      msgVpn: default
+      clientUsername: default
+      clientPassword:
+      apiProperties:
+        allow-guaranteed‑message‑receive: true
+        allow‑guaranteed‑endpont-create: true
+        IGNORE_DUPLICATE_SUBSCRIPTION_ERROR: true
+  topics:
+    templates:
+      v1:
+        PROCESSOR_STATUS: HSX0${NODE.SITE.NO}/${solace.vpn-id}/G/ADM/PROSTAUS/$[operation]/NFY/SA0${NODE.NO}/$[messageEntryPoint]/V1/JSON
+        SA_STATUS: HSX0${NODE.SITE.NO}/${solace.vpn-id}/G/ADM/SASTATUS/$[operation]/NFY/SA0${NODE.NO}/$[messageEntryPoint]/V1/JSON

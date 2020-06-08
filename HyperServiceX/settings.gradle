@@ -1,0 +1,14 @@
+rootProject.name = 'hyper-service-x'
+include 'common-utils'
+include 'common-processor-utils'
+include 'service-adapter'
+include 'processor'
+include 'common-models'
+include 'backoffice'
+
+/*include 'solace-api'
+project(':solace-api').projectDir = file('./../Next Gen Modules/solace-api')
+
+
+include 'message-api'
+project(':message-api').projectDir = file('./../Next Gen Modules/message-api')*/
