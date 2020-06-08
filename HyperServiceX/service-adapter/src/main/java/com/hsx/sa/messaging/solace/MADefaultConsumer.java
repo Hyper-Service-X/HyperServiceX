@@ -45,6 +45,5 @@ public class MADefaultConsumer extends SolaceConsumer {
 
     @Override
     public void onException(SolaceException e) {
-
     }
 }
