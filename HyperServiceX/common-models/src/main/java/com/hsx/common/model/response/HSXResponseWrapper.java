@@ -7,12 +7,10 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.hsx.common.model.error.Error;
 import com.hsx.common.model.error.HSXErrorInfo;
 import com.hsx.common.model.util.ErrorUtil;
-import org.springframework.hateoas.Resources;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({"transactionId", "status", "error", "data", "requestedTime", "version"})
@@ -56,17 +54,6 @@ public class HSXResponseWrapper<T> {
         setVersion("v1.0");
         ErrorUtil.fillErrorInfo(response, this);
     }
-
-    public HSXResponseWrapper(HSXApiResponse<T> response, Resources resources) {
-        data = new ArrayList<>();
-
-        if (resources.getContent() != null) {
-            data = (List<T>) resources.getContent().stream().collect(Collectors.toList());
-        }
-        setVersion("v1.0");
-        ErrorUtil.fillErrorInfo(response, this);
-    }
-
 
     public HSXResponseWrapper(HSXErrorInfo HSXErrorInfo) {
         this();

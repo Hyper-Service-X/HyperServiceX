@@ -14,16 +14,16 @@ repositories {
 }
 
 dependencies {
-    compile("javax.persistence", "persistence-api", "1.0")
-    compile("com.fasterxml.jackson.core", "jackson-core", "2.9.7")
-    compile("org.springframework.hateoas", "spring-hateoas", "0.18.0.RELEASE")
-    compile("org.springframework", "spring-core", "5.1.1.RELEASE")
-    compile("com.fasterxml.jackson.core", "jackson-databind", "2.9.7")
-    compile("org.springframework", "spring-webmvc", "5.2.2.RELEASE")
-    compile("org.springframework.boot:spring-boot-starter-data-jpa:2.3.0.RELEASE")
+    implementation("javax.persistence", "persistence-api", "1.0")
+    implementation("com.fasterxml.jackson.core", "jackson-core", "2.9.7")
+    implementation("org.springframework.hateoas", "spring-hateoas", "0.18.0.RELEASE")
+    implementation("org.springframework", "spring-core", "5.1.1.RELEASE")
+    implementation("com.fasterxml.jackson.core", "jackson-databind", "2.9.7")
+    implementation("org.springframework", "spring-webmvc", "5.2.2.RELEASE")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa:2.3.0.RELEASE")
 
     // Validation
-    compile("javax.validation","validation-api", "2.0.1.Final")
+    implementation("javax.validation","validation-api", "2.0.1.Final")
 
     //lombok
     compileOnly("org.projectlombok:lombok:1.18.8")

@@ -98,38 +98,38 @@ repositories {
 dependencies {
 
     implementation(fileTree(mapOf("dir" to "libs/compile", "include" to listOf("*.jar"))))
-    compile(project(":common-utils"))
-    compile(project(":common-models"))
+    implementation(project(":common-utils"))
+    implementation(project(":common-models"))
 
     implementation("org.springframework.boot", "spring-boot-starter-data-jpa");
     implementation("org.springframework.boot", "spring-boot-starter-security");
     implementation("org.springframework.boot", "spring-boot-starter-web");
-    compile("org.springframework.boot", "spring-boot-starter-aop")
-    compile("org.springframework.boot", "spring-boot-starter-data-mongodb")
-    compile("org.springframework.integration", "spring-integration-core", "5.1.0.RELEASE")
-    compile("org.springframework.integration", "spring-integration-stream", "5.1.0.RELEASE")
-    compile("org.springframework.hateoas", "spring-hateoas", "0.18.0.RELEASE")
-    compile("io.springfox", "springfox-swagger2", "2.9.2")
-    compile("io.springfox", "springfox-swagger-ui", "2.9.2")
+    implementation("org.springframework.boot", "spring-boot-starter-aop")
+    implementation("org.springframework.boot", "spring-boot-starter-data-mongodb")
+    implementation("org.springframework.integration", "spring-integration-core", "5.1.0.RELEASE")
+    implementation("org.springframework.integration", "spring-integration-stream", "5.1.0.RELEASE")
+    implementation("org.springframework.hateoas", "spring-hateoas", "0.18.0.RELEASE")
+    implementation("io.springfox", "springfox-swagger2", "2.9.2")
+    implementation("io.springfox", "springfox-swagger-ui", "2.9.2")
 
     compileOnly("org.projectlombok:lombok:1.18.8")
     testCompileOnly("org.projectlombok:lombok:1.18.8")
     annotationProcessor("org.projectlombok:lombok:1.18.8")
     testAnnotationProcessor("org.projectlombok:lombok:1.18.8")
 
-    compile("org.slf4j", "slf4j-api", "1.7.25")
+    implementation("org.slf4j", "slf4j-api", "1.7.25")
 
     // Validation
-    compile("javax.validation", "validation-api", "2.0.1.Final")
+    implementation("javax.validation", "validation-api", "2.0.1.Final")
 
-    testCompile("org.springframework", "spring-test", "5.1.1.RELEASE")
+    testImplementation("org.springframework", "spring-test", "5.1.1.RELEASE")
     testCompileOnly("org.junit.jupiter:junit-jupiter-api:5.3.1")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.3.1")
 
 //    //solace dependencies
-    compile("com.solacesystems:sol-jcsmp:10.6.4")
-    compile("com.solace.cloud.core:solace-services-info:0.4.1")
-    compile("com.solace.cloud.cloudfoundry:solace-spring-cloud-connector:4.1.1")
+    implementation("com.solacesystems:sol-jcsmp:10.6.4")
+    implementation("com.solace.cloud.core:solace-services-info:0.4.1")
+    implementation("com.solace.cloud.cloudfoundry:solace-spring-cloud-connector:4.1.1")
 }
 
 configure<JavaPluginConvention> {

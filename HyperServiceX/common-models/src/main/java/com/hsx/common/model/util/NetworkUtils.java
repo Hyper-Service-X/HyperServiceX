@@ -4,8 +4,6 @@ import com.hsx.common.model.error.ErrorLayer;
 import com.hsx.common.model.error.HSXErrorInfo;
 import com.hsx.common.model.response.HSXApiResponse;
 import com.hsx.common.model.response.HSXResponseWrapper;
-import org.springframework.hateoas.PagedResources;
-import org.springframework.hateoas.Resources;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
@@ -16,22 +14,9 @@ public class NetworkUtils {
 
     public static ResponseEntity wrap(HSXApiResponse data) {
 
-        try {
-            if (data != null && data.getData() != null) {
-                if (data.getData().getClass() == Resources.class || data.getData().getClass() == PagedResources.class) {
-                    Resources resources = (Resources) data.getData();
-
-                    if (resources != null) {
-                        return new ResponseEntity(new HSXResponseWrapper<>(data, resources), data.getCustomizedHttpStatus());
-                    }
-                }
-            }
-            return new ResponseEntity(new HSXResponseWrapper<>(data), data.getCustomizedHttpStatus());
-        } catch (Exception e) {
-            return wrap(e, "Error while wrapping final response");
-        }
-
+        return new ResponseEntity(new HSXResponseWrapper<>(data), data.getCustomizedHttpStatus());
     }
+
 
     public static ResponseEntity wrap(Exception e, String message) {
 
