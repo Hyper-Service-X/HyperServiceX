@@ -40,7 +40,7 @@ public class StatusBroadcastScheduler implements DisposableBean {
     @Scheduled(fixedDelayString = "${PROCESSOR_STATUS.BROADCAST.INTERVAL}")
     public void broadCast() {
         ServiceRegistry serviceRegistry = new ServiceRegistry(ServiceRegistryType.PRO.name(), LOCAL_SITE_NO, CURRENT_NODE_NO, true);
-        HSXMessage status = new HSXMessage(serviceRegistry, new Header.Builder().build(), null);
+        HSXMessage status = new HSXMessage(serviceRegistry, null, null);
         sendMessage(status);
     }
 
@@ -52,7 +52,7 @@ public class StatusBroadcastScheduler implements DisposableBean {
     @Override
     public void destroy() throws Exception {
         ServiceRegistry serviceRegistry = new ServiceRegistry(ServiceRegistryType.PRO.name(), LOCAL_SITE_NO, CURRENT_NODE_NO, false);
-        HSXMessage status = new HSXMessage(serviceRegistry, new Header.Builder().build(), null);
+        HSXMessage status = new HSXMessage(serviceRegistry, null, null);
         sendMessage(status);
     }
 
