@@ -41,6 +41,7 @@ public class StatusBroadcastScheduler implements DisposableBean {
     public void broadCast() {
         ServiceRegistry serviceRegistry = new ServiceRegistry(ServiceRegistryType.PRO.name(), LOCAL_SITE_NO, CURRENT_NODE_NO, true);
         HSXMessage status = new HSXMessage(serviceRegistry, new Header.Builder().build(), null);
+        sendMessage(status);
     }
 
     private void sendMessage(HSXMessage status) {
