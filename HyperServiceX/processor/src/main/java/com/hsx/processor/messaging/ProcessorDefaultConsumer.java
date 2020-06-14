@@ -1,6 +1,6 @@
 package com.hsx.processor.messaging;
 
-import com.bcs.xborder.common.util.messaging.MessageOperation;
+import com.hsx.common.util.messaging.MessageOperation;
 import com.hsx.common.model.constants.MessageType;
 import com.hsx.processor.routing.GlobalMessageInRoutingHandler;
 import com.hsx.solace.SolaceException;

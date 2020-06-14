@@ -1,6 +1,6 @@
 package com.hsx.bo.messaging.solace;
 
-import com.bcs.xborder.common.util.messaging.MessagingUtilService;
+import com.hsx.common.util.messaging.MessagingUtilService;
 import com.hsx.solace.autoconfigure.props.SolaceDefaultProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;

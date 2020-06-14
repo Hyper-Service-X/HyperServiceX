@@ -20,7 +20,7 @@ dependencies {
     implementation("org.springframework", "spring-core", "5.1.1.RELEASE")
     implementation("com.fasterxml.jackson.core", "jackson-databind", "2.9.7")
     implementation("org.springframework", "spring-webmvc", "5.2.2.RELEASE")
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa:2.3.0.RELEASE")
+    implementation("org.springframework.boot:spring-boot-starter-data-mongodb:2.3.0.RELEASE")
 
     // Validation
     implementation("javax.validation","validation-api", "2.0.1.Final")

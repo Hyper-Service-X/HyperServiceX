@@ -2,7 +2,7 @@ package com.hsx.common.processor.service;
 
 
 import com.hsx.common.model.constants.Formats;
-import com.bcs.xborder.common.util.logging.InternalErrorLogger;
+import com.hsx.common.util.logging.InternalErrorLogger;
 import com.hsx.common.model.error.ErrorLog;
 import com.hsx.common.model.exception.HSXServiceException;
 import org.apache.commons.lang3.exception.ExceptionUtils;

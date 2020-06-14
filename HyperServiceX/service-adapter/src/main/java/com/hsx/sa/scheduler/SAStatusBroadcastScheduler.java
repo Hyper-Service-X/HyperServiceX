@@ -1,9 +1,9 @@
 package com.hsx.sa.scheduler;
 
-import com.bcs.xborder.common.util.messaging.MessageProducerService;
-import com.bcs.xborder.common.util.messaging.MessageSite;
-import com.bcs.xborder.common.util.messaging.MessageTopicsUtil;
-import com.bcs.xborder.common.util.util.DateUtil;
+import com.hsx.common.util.messaging.MessageProducerService;
+import com.hsx.common.util.messaging.MessageSite;
+import com.hsx.common.util.messaging.MessageTopicsUtil;
+import com.hsx.common.util.util.DateUtil;
 import com.hsx.common.model.constants.MessageType;
 import com.hsx.common.model.response.HSXMessage;
 import org.slf4j.Logger;

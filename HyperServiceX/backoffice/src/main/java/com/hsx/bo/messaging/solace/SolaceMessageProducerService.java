@@ -1,6 +1,6 @@
 package com.hsx.bo.messaging.solace;
 
-import com.bcs.xborder.common.util.messaging.*;
+import com.hsx.common.util.messaging.*;
 import com.hsx.solace.SolaceException;
 import com.hsx.solace.annotations.SolaceSite;
 import com.hsx.solace.producer.SolaceMessageProducer;
@@ -19,7 +19,7 @@ import java.util.Map;
 
 
 @Component
-@ConditionalOnProperty(name = "ngs.messaging.service", havingValue = "solace", matchIfMissing = true)
+@ConditionalOnProperty(name = "hsx.messaging.service", havingValue = "solace", matchIfMissing = true)
 public class SolaceMessageProducerService<T> extends SolaceMessageProducer<T> implements MessageProducerService<T> {
 
     @Value("${NODE.SITE.NO}")

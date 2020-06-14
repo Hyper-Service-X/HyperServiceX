@@ -1,6 +1,6 @@
 package com.hsx.sa.messaging.solace;
 
-import com.bcs.xborder.common.util.messaging.MessageOperation;
+import com.hsx.common.util.messaging.MessageOperation;
 import com.hsx.common.model.constants.MessageType;
 import com.hsx.sa.routing.GlobalMessageOutRoutingHandler;
 import com.hsx.solace.SolaceException;

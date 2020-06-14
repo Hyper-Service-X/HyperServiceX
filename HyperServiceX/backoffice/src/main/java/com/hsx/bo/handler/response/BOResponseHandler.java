@@ -1,7 +1,7 @@
 package com.hsx.bo.handler.response;
 
-import com.bcs.xborder.common.util.messaging.MessageOperation;
-import com.bcs.xborder.common.util.util.JSONUtil;
+import com.hsx.common.util.messaging.MessageOperation;
+import com.hsx.common.util.util.JSONUtil;
 import com.hsx.common.model.constants.ErrorCode;
 import com.hsx.common.model.constants.SubMessageType;
 import com.hsx.common.model.exception.HSXException;

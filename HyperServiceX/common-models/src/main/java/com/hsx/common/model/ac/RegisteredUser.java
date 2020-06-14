@@ -1,13 +1,12 @@
 package com.hsx.common.model.ac;
 
-import javax.persistence.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
-@Table(name = "registeredUser")
+@Document
 public class RegisteredUser {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     public String firstName;

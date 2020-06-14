@@ -9,6 +9,12 @@ buildscript {
     }
 }
 
+dependencyManagement {
+    dependencies {
+        dependency("org.springframework.session:spring-session-bom:Bean-SR3")
+    }
+}
+
 plugins {
     java
     eclipse
@@ -90,24 +96,26 @@ distributions {
 dependencies {
 
     implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
     //Spring dependencies
-    compile("org.springframework.integration", "spring-integration-core", "5.1.0.RELEASE")
-    compile("org.springframework.integration", "spring-integration-stream", "5.1.0.RELEASE")
-    compile("org.springframework.boot", "spring-boot-starter-aop", "2.2.2.RELEASE")
+    implementation("org.springframework.integration", "spring-integration-core", "5.1.0.RELEASE")
+//    implementation("org.springframework.session", "spring-session-data-mongodb", "5.1.0.RELEASE")
+    implementation("org.springframework.integration", "spring-integration-stream", "5.1.0.RELEASE")
+    implementation("org.springframework.boot", "spring-boot-starter-aop")
 
 
     implementation(fileTree(mapOf("dir" to "libs/compile", "include" to listOf("*.jar"))))
-    compile("javax.servlet", "javax.servlet-api", "3.1.0")
+    implementation("javax.servlet", "javax.servlet-api", "3.1.0")
 
     //Logging
-    compile(project(":common-utils"))
-    compile(project(":common-processor-utils"))
+    implementation(project(":common-utils"))
+    implementation(project(":common-processor-utils"))
 
 
     //Micrometer and metrics dependencies
-    compile("org.springframework.boot", "spring-boot-starter-actuator", "2.2.2.RELEASE")
-    compile("io.micrometer", "micrometer-registry-prometheus", "1.1.0")
-    compile("com.fasterxml.jackson.core", "jackson-databind", "2.9.4")
+    implementation("org.springframework.boot", "spring-boot-starter-actuator")
+    implementation("io.micrometer", "micrometer-registry-prometheus", "1.1.0")
+    implementation("com.fasterxml.jackson.core", "jackson-databind", "2.9.4")
 
 
     compileOnly("org.projectlombok:lombok:1.18.8")

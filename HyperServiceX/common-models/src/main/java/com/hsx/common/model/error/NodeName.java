@@ -1,9 +1,9 @@
 package com.hsx.common.model.error;
 
-import com.hsx.common.model.constants.ServiceRegistry;
+import com.hsx.common.model.constants.ServiceRegistryType;
 
 public class NodeName {
-    private ServiceRegistry serviceRegistry;
+    private ServiceRegistryType serviceRegistryType;
     private int siteNo;
     private int nodeNo;
 }

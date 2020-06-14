@@ -1,6 +1,6 @@
 package com.hsx.bo.routing;
 
-import com.bcs.xborder.common.util.messaging.MessageOperation;
+import com.hsx.common.util.messaging.MessageOperation;
 import com.hsx.bo.spring.integration.BoMessageRoutingOutGateway;
 import com.hsx.common.model.constants.Constants;
 import com.hsx.common.model.constants.MessageType;

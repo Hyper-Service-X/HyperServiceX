@@ -1,8 +1,8 @@
 package com.hsx.bo.handler.request;
 
-import com.bcs.xborder.common.util.messaging.*;
-import com.bcs.xborder.common.util.validators.Validator;
-import com.bcs.xborder.common.util.validators.ValidatorService;
+import com.hsx.common.util.messaging.*;
+import com.hsx.common.util.validators.Validator;
+import com.hsx.common.util.validators.ValidatorService;
 import com.hsx.bo.assembler.ResultAssembler;
 import com.hsx.bo.messaging.solace.SolaceMessageProducerService;
 import com.hsx.common.model.RequestsHolder;
@@ -28,7 +28,7 @@ import javax.annotation.PostConstruct;
 import java.util.HashMap;
 import java.util.List;
 
-import static com.bcs.xborder.common.util.messaging.MessageDirection.REQ;
+import static com.hsx.common.util.messaging.MessageDirection.REQ;
 
 @Component
 public abstract class BORequestHandler<I extends BORequestCriteria, O extends HSXMessage> {

@@ -1,6 +1,6 @@
 package com.hsx.common.processor.messaging.producer;
 
-import com.bcs.xborder.common.util.messaging.*;
+import com.hsx.common.util.messaging.*;
 import com.hsx.solace.SolaceException;
 import com.hsx.solace.annotations.SolaceSite;
 import com.hsx.solace.producer.SolaceMessageProducer;

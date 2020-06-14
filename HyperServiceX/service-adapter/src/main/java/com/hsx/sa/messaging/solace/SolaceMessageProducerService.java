@@ -1,6 +1,6 @@
 package com.hsx.sa.messaging.solace;
 
-import com.bcs.xborder.common.util.messaging.*;
+import com.hsx.common.util.messaging.*;
 import com.hsx.solace.SolaceException;
 import com.hsx.solace.annotations.SolaceSite;
 import com.hsx.solace.producer.SolaceMessageProducer;
@@ -8,7 +8,7 @@ import com.hsx.solace.producer.SolaceProducerCallback;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 
-@Component
+@Service
 @ConditionalOnProperty(name = "hsx.messaging.service", havingValue = "solace", matchIfMissing = true)
 public class SolaceMessageProducerService<T> extends SolaceMessageProducer<T> implements MessageProducerService<T> {
 

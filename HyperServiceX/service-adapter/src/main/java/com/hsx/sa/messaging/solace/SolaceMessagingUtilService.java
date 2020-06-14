@@ -1,13 +1,13 @@
 package com.hsx.sa.messaging.solace;
 
-import com.bcs.xborder.common.util.messaging.MessagingUtilService;
+import com.hsx.common.util.messaging.MessagingUtilService;
 import com.hsx.solace.autoconfigure.props.SolaceDefaultProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 
 @Service
-@ConditionalOnProperty(name = "ngs.messaging.service", havingValue = "solace", matchIfMissing = true)
+@ConditionalOnProperty(name = "hsx.messaging.service", havingValue = "solace", matchIfMissing = true)
 public class SolaceMessagingUtilService implements MessagingUtilService {
 
     @Autowired

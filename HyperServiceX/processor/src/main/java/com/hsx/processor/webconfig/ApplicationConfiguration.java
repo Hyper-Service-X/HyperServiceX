@@ -11,5 +11,4 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 //@PropertySource({"classpath:application.properties", "classpath:application-${spring.profiles.active}.properties"})
 @EnableAspectJAutoProxy
 public class ApplicationConfiguration {
-
 }

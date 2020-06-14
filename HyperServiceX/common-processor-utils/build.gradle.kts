@@ -1,8 +1,9 @@
+val profile = project.findProperty("profile") ?: "dev"
+
 plugins {
     idea
     java
     eclipse
-
 }
 
 group = "com.hsx"

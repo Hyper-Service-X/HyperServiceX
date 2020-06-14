@@ -1,7 +1,7 @@
 package com.hsx.bo.controller;
 
 import com.hsx.common.model.error.ErrorLog;
-import com.bcs.xborder.common.util.messaging.MessageOperation;
+import com.hsx.common.util.messaging.MessageOperation;
 import com.hsx.bo.routing.GlobalBoMessageInRoutingHandler;
 import com.hsx.common.model.RequestsHolder;
 import com.hsx.common.model.constants.Formats;

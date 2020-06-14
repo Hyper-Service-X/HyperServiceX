@@ -1,6 +1,6 @@
 package com.hsx.common.processor.service;
 
-import com.bcs.xborder.common.util.util.JSONUtil;
+import com.hsx.common.util.util.JSONUtil;
 import com.hsx.common.model.constants.Constants;
 import com.hsx.common.model.constants.MessageType;
 import com.hsx.common.model.request.BORequest;

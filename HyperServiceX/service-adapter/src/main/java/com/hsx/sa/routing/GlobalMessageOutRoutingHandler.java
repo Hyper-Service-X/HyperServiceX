@@ -1,6 +1,6 @@
 package com.hsx.sa.routing;
 
-import com.bcs.xborder.common.util.messaging.MessageOperation;
+import com.hsx.common.util.messaging.MessageOperation;
 import com.hsx.common.model.constants.Constants;
 import com.hsx.common.model.constants.MessageType;
 import org.slf4j.Logger;

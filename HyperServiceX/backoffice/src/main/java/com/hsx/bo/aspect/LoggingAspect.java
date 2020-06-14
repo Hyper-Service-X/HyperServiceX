@@ -3,7 +3,7 @@ package com.hsx.bo.aspect;
 import com.hsx.common.model.constants.Formats;
 import com.hsx.common.model.exception.HSXException;
 import com.hsx.common.model.error.ErrorLog;
-import com.bcs.xborder.common.util.logging.InternalErrorLogger;
+import com.hsx.common.util.logging.InternalErrorLogger;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;

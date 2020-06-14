@@ -1,6 +1,6 @@
 package com.hsx.bo.service.impl;
 
-import com.bcs.xborder.common.util.util.JSONUtil;
+import com.hsx.common.util.util.JSONUtil;
 import com.hsx.bo.handler.response.BOResponseHandler;
 import com.hsx.bo.service.AbstractService;
 import com.hsx.common.model.constants.Constants;

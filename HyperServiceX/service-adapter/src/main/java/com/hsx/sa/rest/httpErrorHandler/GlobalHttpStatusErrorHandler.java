@@ -1,9 +1,9 @@
 package com.hsx.sa.rest.httpErrorHandler;
 
-import com.bcs.xborder.common.util.messaging.MessageProducerService;
-import com.bcs.xborder.common.util.messaging.MessageSite;
-import com.bcs.xborder.common.util.messaging.MessageTopic;
-import com.bcs.xborder.common.util.messaging.MessageTopicsUtil;
+import com.hsx.common.util.messaging.MessageProducerService;
+import com.hsx.common.util.messaging.MessageSite;
+import com.hsx.common.util.messaging.MessageTopic;
+import com.hsx.common.util.messaging.MessageTopicsUtil;
 import com.hsx.common.model.constants.Constants;
 import com.hsx.common.model.constants.Formats;
 import com.hsx.common.model.constants.MessageType;
