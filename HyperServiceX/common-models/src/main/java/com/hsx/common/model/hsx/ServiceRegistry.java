@@ -11,8 +11,18 @@ import lombok.*;
 @NoArgsConstructor
 @ToString
 public class ServiceRegistry {
-    private String nodeType;
-    private int siteNo;
-    private int nodeNo;
+    private String serviceName;
+    private String nodeName;
     private boolean status;
+    private boolean master;
+
+    private String lastUpdatedTime;
+    private String statusFrom;
+    private String lastAvailableTime;
+
+    public ServiceRegistry(String serviceName, String nodeName, boolean status) {
+        this.serviceName = serviceName;
+        this.nodeName = nodeName;
+        this.status = status;
+    }
 }

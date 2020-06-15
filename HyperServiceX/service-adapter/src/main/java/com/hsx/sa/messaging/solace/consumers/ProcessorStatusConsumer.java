@@ -6,8 +6,8 @@ import com.hsx.solace.annotations.*;
 @SolaceGuaranteedMessageConsumer(
         name = "Q.HSX0${NODE.SITE.NO}.${solace.vpn-id}.SA.NFY.JSON.PROCESSOR_STATUS",
         topics = {
-                "HSX0${NODE.SITE.NO}/${solace.vpn-id}/G/ADM/PROSTAUS/*/NFY/PRX*/*/V1/JSON",
-                "HSX0${NODE.SITE.NO}/${solace.vpn-id}/G/ADM/PROSTAUS/*/NFY/PRX*/*/V1/JSON/>"
+                "HSX0${NODE.SITE.NO}/${solace.vpn-id}/G/ADM/PROSTAUS/*/NFY/PRO*/*/V1/JSON",
+                "HSX0${NODE.SITE.NO}/${solace.vpn-id}/G/ADM/PROSTAUS/*/NFY/PRO*/*/V1/JSON/>"
         },
         sites = {SolaceSite.DEFAULT})
 @EndPointConfigurations(

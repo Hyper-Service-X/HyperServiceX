@@ -4,6 +4,7 @@ include 'common-processor-utils'
 include 'service-adapter'
 include 'processor'
 include 'common-models'
+include 'hsx-models'
 include 'backoffice'
 
 /*include 'solace-api'

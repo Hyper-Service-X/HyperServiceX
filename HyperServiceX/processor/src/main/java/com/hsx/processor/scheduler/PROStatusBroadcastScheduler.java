@@ -1,9 +1,7 @@
 package com.hsx.processor.scheduler;
 
 import com.hsx.common.model.constants.MessageType;
-import com.hsx.common.model.constants.ServiceRegistryType;
 import com.hsx.common.model.hsx.ServiceRegistry;
-import com.hsx.common.model.request.Header;
 import com.hsx.common.model.response.HSXMessage;
 import com.hsx.common.processor.messaging.producer.SolaceMessageProducerService;
 import com.hsx.common.util.messaging.MessageSite;
@@ -18,19 +16,18 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-@Component("statusBroadcastScheduler")
-public class StatusBroadcastScheduler implements DisposableBean {
+@Component("proStatusBroadcastScheduler")
+public class PROStatusBroadcastScheduler implements DisposableBean {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(StatusBroadcastScheduler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(PROStatusBroadcastScheduler.class);
 
     private static final String fromTime = DateUtil.localDateTimeWithMillis();
 
-    @Value("${NODE.SITE.NO}")
-    private int LOCAL_SITE_NO;
+    @Value("${NODE.NAME}")
+    private String NODE_NAME;
 
-    @Value("${NODE.NO}")
-    private int CURRENT_NODE_NO;
-
+    @Value("${SERVICE.NAME}")
+    private String SERVICE_NAME;
     @Autowired
     SolaceMessageProducerService<HSXMessage> solaceMessageProducerService;
 
@@ -39,7 +36,9 @@ public class StatusBroadcastScheduler implements DisposableBean {
 
     @Scheduled(fixedDelayString = "${PROCESSOR_STATUS.BROADCAST.INTERVAL}")
     public void broadCast() {
-        ServiceRegistry serviceRegistry = new ServiceRegistry(ServiceRegistryType.PRO.name(), LOCAL_SITE_NO, CURRENT_NODE_NO, true);
+        ServiceRegistry serviceRegistry = new ServiceRegistry(SERVICE_NAME, NODE_NAME, true);
+        serviceRegistry.setLastAvailableTime(DateUtil.localDateTimeWithMillis());
+        serviceRegistry.setStatusFrom(fromTime);
         HSXMessage status = new HSXMessage(serviceRegistry, null, null);
         sendMessage(status);
     }
@@ -51,7 +50,9 @@ public class StatusBroadcastScheduler implements DisposableBean {
 
     @Override
     public void destroy() throws Exception {
-        ServiceRegistry serviceRegistry = new ServiceRegistry(ServiceRegistryType.PRO.name(), LOCAL_SITE_NO, CURRENT_NODE_NO, false);
+        ServiceRegistry serviceRegistry = new ServiceRegistry(SERVICE_NAME, NODE_NAME, true);
+        serviceRegistry.setLastAvailableTime(DateUtil.localDateTimeWithMillis());
+        serviceRegistry.setStatusFrom(fromTime);
         HSXMessage status = new HSXMessage(serviceRegistry, null, null);
         sendMessage(status);
     }

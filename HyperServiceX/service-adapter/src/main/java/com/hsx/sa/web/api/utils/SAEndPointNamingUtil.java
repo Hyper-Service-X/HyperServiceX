@@ -1,6 +1,6 @@
 package com.hsx.sa.web.api.utils;
 
-public class MAEndPointNamingUtil
+public class SAEndPointNamingUtil
 {
 
 	public static final String VERSION = "/v1";

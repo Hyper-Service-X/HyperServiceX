@@ -22,34 +22,11 @@ public class PROMonitoringThread {
     private MonitorLogger logger;
 
     @Autowired
-    ThreadPoolTaskExecutor safThreadExecutor;
+    ThreadPoolTaskExecutor operationalMessageTaskExecutor;
 
     @Autowired
-    ThreadPoolTaskExecutor creditTransferTaskReqExecutor;
+    ThreadPoolTaskExecutor commonOperationalTaskExecutor;
 
-    @Autowired
-    ThreadPoolTaskExecutor paymentStatusCreditTransferTaskReqExecutor;
-
-    @Autowired
-    ThreadPoolTaskExecutor echoTaskReqExecutor;
-
-    @Autowired
-    ThreadPoolTaskExecutor paymentReversalTaskExecutor;
-
-    @Autowired
-    ThreadPoolTaskExecutor paymentStatusTaskReqExecutor;
-
-    @Autowired
-    ThreadPoolTaskExecutor paymentCancelResTaskReqExecutor;
-
-    @Autowired
-    ThreadPoolTaskExecutor transactionalMessageInRoutingTaskExecutor;
-
-    @Autowired
-    ThreadPoolTaskExecutor adminMessageInRoutingTaskExecutor;
-
-    @Autowired
-    ThreadPoolTaskExecutor operationalMessageInRoutingTaskExecutor;
 
     private int maxThreadshold = 30;
 
@@ -82,15 +59,7 @@ public class PROMonitoringThread {
 
     @PostConstruct
     public void init() {
-        maThreadPool.add(safThreadExecutor);
-        maThreadPool.add(creditTransferTaskReqExecutor);
-        maThreadPool.add(paymentStatusCreditTransferTaskReqExecutor);
-        maThreadPool.add(echoTaskReqExecutor);
-        maThreadPool.add(paymentReversalTaskExecutor);
-        maThreadPool.add(paymentStatusTaskReqExecutor);
-        maThreadPool.add(paymentCancelResTaskReqExecutor);
-        maThreadPool.add(transactionalMessageInRoutingTaskExecutor);
-        maThreadPool.add(adminMessageInRoutingTaskExecutor);
-        maThreadPool.add(operationalMessageInRoutingTaskExecutor);
+        maThreadPool.add(operationalMessageTaskExecutor);
+        maThreadPool.add(commonOperationalTaskExecutor);
     }
 }

@@ -5,7 +5,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.2.2.RELEASE")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.2.3.RELEASE")
     }
 }
 
@@ -39,8 +39,8 @@ tasks.getByName<Jar>("jar") {
 
 val jvmArgs = mutableListOf("-Djava.net.preferIPv4Stack=true -Xms512m -Xmx1024m", "-Dspring.profiles.active=$profile");
 
-if(profile == "dev"){
-    jvmArgs.add("-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8001");
+if (profile == "dev") {
+    jvmArgs.add("-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000");
 }
 
 application {
@@ -88,6 +88,7 @@ tasks.startScripts {
 
 dependencies {
     compile(project(":common-utils"))
+    { exclude("org.springframework.boot:spring-boot-starter-data-mongodb:2.3.0.RELEASE") }
 
     //Spring dependencies
     implementation("org.springframework.boot:spring-boot-starter-web")

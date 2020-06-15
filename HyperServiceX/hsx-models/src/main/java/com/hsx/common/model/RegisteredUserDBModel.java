@@ -1,12 +1,7 @@
-package com.hsx.common.model.ac;
+package com.hsx.common.model;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+public class RegisteredUserDBModel {
 
-@Document
-public class RegisteredUser {
-
-    @Id
     private long id;
 
     public String firstName;

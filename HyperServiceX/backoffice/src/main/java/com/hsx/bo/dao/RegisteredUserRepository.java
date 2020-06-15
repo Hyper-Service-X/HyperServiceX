@@ -1,6 +1,6 @@
 package com.hsx.bo.dao;
 
-import com.hsx.common.model.ac.RegisteredUser;
+import com.hsx.common.model.RegisteredUser;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;

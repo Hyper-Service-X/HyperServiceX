@@ -1,11 +1,13 @@
 package com.hsx.sa.scheduler;
 
+import com.hsx.common.model.constants.MessageType;
+import com.hsx.common.model.constants.ServiceRegistryType;
+import com.hsx.common.model.hsx.ServiceRegistry;
+import com.hsx.common.model.response.HSXMessage;
 import com.hsx.common.util.messaging.MessageProducerService;
 import com.hsx.common.util.messaging.MessageSite;
 import com.hsx.common.util.messaging.MessageTopicsUtil;
 import com.hsx.common.util.util.DateUtil;
-import com.hsx.common.model.constants.MessageType;
-import com.hsx.common.model.response.HSXMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.DisposableBean;
@@ -19,8 +21,8 @@ public class SAStatusBroadcastScheduler implements DisposableBean {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SAStatusBroadcastScheduler.class);
 
-    @Value("${NODE.NO}")
-    private int NODE_NAME;
+    @Value("${NODE.NAME}")
+    private String NODE_NAME;
     @Value("${NODE.SITE.NO}")
     private int LOCAL_SITE_NO;
 
@@ -32,15 +34,21 @@ public class SAStatusBroadcastScheduler implements DisposableBean {
 
     private static final String fromTime = DateUtil.localDateTimeWithMillis();
 
-    @Scheduled(fixedDelayString = "${MA_STATUS.BRAODCAST.INTERVAL}")
+    @Scheduled(fixedDelayString = "${MA_STATUS.BROADCAST.INTERVAL}")
     public void broadCast() {
-        HSXMessage status = new HSXMessage();
+        ServiceRegistry serviceRegistry = new ServiceRegistry(ServiceRegistryType.SA.name(), NODE_NAME, true);
+        serviceRegistry.setLastAvailableTime(DateUtil.localDateTimeWithMillis());
+        serviceRegistry.setStatusFrom(fromTime);
+        HSXMessage status = new HSXMessage(serviceRegistry, null, null);
         sendMessage(status);
     }
 
     @Override
     public void destroy() throws Exception {
-        HSXMessage status = new HSXMessage();
+        ServiceRegistry serviceRegistry = new ServiceRegistry(ServiceRegistryType.SA.name(), NODE_NAME, false);
+        serviceRegistry.setLastAvailableTime(DateUtil.localDateTimeWithMillis());
+        serviceRegistry.setStatusFrom(fromTime);
+        HSXMessage status = new HSXMessage(serviceRegistry, null, null);
         sendMessage(status);
     }
 

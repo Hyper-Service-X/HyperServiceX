@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Component;
 
@@ -21,71 +22,10 @@ public class SAMonitoringThread {
     private MonitorLogger logger;
 
     @Autowired
-    ThreadPoolTaskExecutor mqPutTaskExecutor;
+    ThreadPoolTaskExecutor operationalMessageTaskExecutor;
 
     @Autowired
-    ThreadPoolTaskExecutor RESTPutTaskExecutor;
-
-    @Autowired
-    ThreadPoolTaskExecutor messageSigningTaskExecutor;
-
-    @Autowired
-    ThreadPoolTaskExecutor assignGatewayTaskExecutor;
-
-    @Autowired
-    ThreadPoolTaskExecutor resProcessingTaskExecutor;
-
-    @Autowired
-    ThreadPoolTaskExecutor creditTransferOutTaskExecutor;
-
-    @Autowired
-    ThreadPoolTaskExecutor paymentStatusOutTaskExecutor;
-
-    @Autowired
-    ThreadPoolTaskExecutor syncMqaTaskExecutor;
-
-    @Autowired
-    ThreadPoolTaskExecutor schemaValidationTaskExecutor;
-
-    @Autowired
-    ThreadPoolTaskExecutor signatureValidationTaskExecutor;
-
-    @Autowired
-    ThreadPoolTaskExecutor commonMessageInRoutingTaskExecutor;
-
-    @Autowired
-    ThreadPoolTaskExecutor transactionalMessageInRoutingTaskExecutor;
-
-    @Autowired
-    ThreadPoolTaskExecutor adminMessageInRoutingTaskExecutor;
-
-    @Autowired
-    ThreadPoolTaskExecutor operationalMessageInRoutingTaskExecutor;
-
-    @Autowired
-    ThreadPoolTaskExecutor paymentCancellationReqTaskExecutor;
-
-    @Autowired
-    ThreadPoolTaskExecutor paymentCancellationResTaskExecutor;
-
-    @Autowired
-    ThreadPoolTaskExecutor resolutionOfInvestigationResTaskExecutor;
-
-    @Autowired
-    ThreadPoolTaskExecutor proxyLookUpReqTaskExecutor;
-
-    @Autowired
-    ThreadPoolTaskExecutor proxyLookUpResTaskExecutor;
-
-    @Autowired
-    ThreadPoolTaskExecutor transactionalMessageOutRoutingTaskExecutor;
-
-    @Autowired
-    ThreadPoolTaskExecutor adminMessageOutRoutingTaskExecutor;
-
-    @Autowired
-    ThreadPoolTaskExecutor operationalMessageOutRoutingTaskExecutor;
-
+    ThreadPoolTaskExecutor commonOperationalTaskExecutor;
 
     private int maxThreadshold = 30;
 
@@ -93,7 +33,7 @@ public class SAMonitoringThread {
     private static final Logger LOGGER = LoggerFactory.getLogger(SAMonitoringThread.class);
 
 
-    //@Scheduled(fixedDelayString = "${MONITOR.REFRESH.DELAY}")
+    @Scheduled(fixedDelayString = "${MONITOR.REFRESH.DELAY}")
     public void monitorMessageAdaptorThreadPool() {
         showThreadPoolCount();
     }
@@ -104,7 +44,6 @@ public class SAMonitoringThread {
             if (threadPool != null) {
                 int queueSize = threadPool.getThreadPoolExecutor().getQueue().size();
                 int remainingSize = threadPool.getThreadPoolExecutor().getQueue().remainingCapacity();
-                //int total = queueSize + remainingSize;
 
                 logger.info(threadPool.getThreadNamePrefix() +
                         "::Active-Count::" + threadPool.getActiveCount() +
@@ -118,29 +57,7 @@ public class SAMonitoringThread {
 
     @PostConstruct
     public void init() {
-//        maThreadPool.add(mqMessageListenerTaskExecutor);
-//        maThreadPool.add(mqMessagePutTaskExecutor);
-        maThreadPool.add(mqPutTaskExecutor);
-        maThreadPool.add(RESTPutTaskExecutor);
-        maThreadPool.add(messageSigningTaskExecutor);
-        maThreadPool.add(assignGatewayTaskExecutor);
-        maThreadPool.add(resProcessingTaskExecutor);
-        maThreadPool.add(creditTransferOutTaskExecutor);
-        maThreadPool.add(paymentStatusOutTaskExecutor);
-        maThreadPool.add(syncMqaTaskExecutor);
-        maThreadPool.add(schemaValidationTaskExecutor);
-        maThreadPool.add(signatureValidationTaskExecutor);
-        maThreadPool.add(commonMessageInRoutingTaskExecutor);
-        maThreadPool.add(transactionalMessageInRoutingTaskExecutor);
-        maThreadPool.add(adminMessageInRoutingTaskExecutor);
-        maThreadPool.add(operationalMessageInRoutingTaskExecutor);
-        maThreadPool.add(paymentCancellationReqTaskExecutor);
-        maThreadPool.add(paymentCancellationResTaskExecutor);
-        maThreadPool.add(resolutionOfInvestigationResTaskExecutor);
-        maThreadPool.add(proxyLookUpReqTaskExecutor);
-        maThreadPool.add(proxyLookUpResTaskExecutor);
-        maThreadPool.add(transactionalMessageOutRoutingTaskExecutor);
-        maThreadPool.add(adminMessageOutRoutingTaskExecutor);
-        maThreadPool.add(operationalMessageOutRoutingTaskExecutor);
+        maThreadPool.add(operationalMessageTaskExecutor);
+        maThreadPool.add(commonOperationalTaskExecutor);
     }
 }

@@ -19,7 +19,7 @@ public class RequestsHolder {
     static Logger LOGGER = LoggerFactory.getLogger(RequestsHolder.class);
 
 
-    public static HSXApiResponse xbDefaultTimeoutResponse = new HSXApiResponse(Status.TIMEOUT, "Request is Timeout", HttpStatus.REQUEST_TIMEOUT);
+    public static HSXApiResponse xbDefaultTimeoutResponse = new HSXApiResponse(com.hsx.common.model.error.Status.TIMEOUT, "Request is Timeout", HttpStatus.REQUEST_TIMEOUT);
 
     public static HSXApiResponse xbDefaultErrorResponse = new HSXApiResponse(Status.ERROR, "Unexpected Error Occurred", HttpStatus.INTERNAL_SERVER_ERROR);
 

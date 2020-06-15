@@ -1,6 +1,6 @@
 package com.hsx.processor.repository;
 
-import com.hsx.common.model.ac.RegisteredUser;
+import com.hsx.common.model.RegisteredUserDBModel;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -13,13 +13,13 @@ import java.util.stream.Stream;
  * @author Nadith
  */
 @Repository
-public interface RegisteredUserRepository extends MongoRepository<RegisteredUser, Long> {
+public interface RegisteredUserRepository extends MongoRepository<RegisteredUserDBModel, Long> {
 
     @Override
-    Optional<RegisteredUser> findById(Long aLong);
+    Optional<RegisteredUserDBModel> findById(Long aLong);
 
-    List<RegisteredUser> findByFirstName(String firstName);
+    List<RegisteredUserDBModel> findByFirstName(String firstName);
 
     @Query("{ 'fistName' : ?0 }")
-    Stream<RegisteredUser> findByCustomQueryAndFirstName(String firstName);
+    Stream<RegisteredUserDBModel> findByCustomQueryAndFirstName(String firstName);
 }

@@ -1,27 +1,15 @@
-Setup Environment Variables
-
-
-MQ_HOST = Host of MQ Adapter ( Default 127.0.0.1 )
-IGNITE_1 =  Ignite 1 jdbc url - default 127.0.0.1:10808
-IGNITE_2 = Ignite 2 jdbc url - default 127.0.0.1:10808
-DEFAULT_MESSAGING_SERVICE = Default messaging service to be used. Default to 'solace'.
-KAFKA_BOOTSTRAP_1 = Kafka bootstrap server. Defaulting to 192.168.16.150:9092. ( NOT REQUIRED IF KAFKA NOT USED )
-SOLACE_VPN_UNIQUE_ID = One unique two digit number for every developer. Default to 1.
-
------------------------------------------------------------------------------------
-
 1. To build and install distribution without test. If profile variable not passed, it will take dev by default.
     gradle clean build distZip installDist -x test -Pprofile=dev
     //If the profile is not given, it will use dev by default
 
-2. To run the Message Adapter
-    ./build/install/message-adapter/bin/message-adapter start
+2. To run the Service Adapter
+    ./build/install/service-adapter/bin/service-adapter start
 
     To Stop the message adapter
-    ./build/install/message-adapter/bin/message-adapter stop
+    ./build/install/service-adapter/bin/service-adapter stop
 
     tail -100f ./build/install/message-adapter/logs/wrapper.log
 
 
-  To run the MQ Adapter in windows
-      .\build\install\message-adapter\bin\message-adapter
+  To run the Service Adapter in windows
+      .\build\install\service-adapter\bin\service-adapter

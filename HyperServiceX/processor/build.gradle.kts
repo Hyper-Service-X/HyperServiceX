@@ -109,6 +109,7 @@ dependencies {
 
     //Logging
     implementation(project(":common-utils"))
+    implementation(project(":hsx-models"))
     implementation(project(":common-processor-utils"))
 
 

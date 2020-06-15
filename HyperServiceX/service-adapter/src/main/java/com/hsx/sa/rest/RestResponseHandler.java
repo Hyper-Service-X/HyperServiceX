@@ -16,7 +16,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.Nullable;
 import org.springframework.messaging.Message;
-import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClientException;
@@ -33,17 +32,17 @@ public class RestResponseHandler {
     @Value("${NODE.SITE.NO}")
     private int CURRENT_SITE_NO;
 
-    @Autowired
-    RestTemplateResponseErrorHandler restTemplateResponseErrorHandler;
+//    @Autowired
+//    RestTemplateResponseErrorHandler restTemplateResponseErrorHandler;
 
     @Autowired
     RestRequestHandler restRequestHandler;
-
-    @Autowired
-    private MessageChannel schemaValidationChannel;
-
-    @Autowired
-    private MessageChannel globalHttpStatusErrorHandlerChannel;
+//
+//    @Autowired
+//    private MessageChannel schemaValidationChannel;
+//
+//    @Autowired
+//    private MessageChannel globalHttpStatusErrorHandlerChannel;
 
     public void handleResponse(String payload, String endpointCode, String instructionId, int fromSiteNo) throws HSXException {
         try {
@@ -52,7 +51,7 @@ public class RestResponseHandler {
                     .setHeader(Constants.MessageHeaders.RECEIVED_TIME.name(), System.currentTimeMillis())
                     .setHeader(Constants.MessageHeaders.MESSAGE_TYPE.name(), MessageType.NA)
                     .build();
-            schemaValidationChannel.send(fastMessage);
+            //schemaValidationChannel.send(fastMessage);
         } catch (Exception e) {
             LOGGER.error("Error Occurred while  forwarding the message into schemaValidationChannel: {}", payload);
             throw new HSXException("Error Occurred while forwarding the message into schemaValidationChannel: " + payload);
@@ -67,7 +66,7 @@ public class RestResponseHandler {
                             .withPayload(failedPayload)
                             .setHeader(Constants.MessageHeaders.MESSAGE_TYPE.name(), messageType)
                             .build();
-                    globalHttpStatusErrorHandlerChannel.send(fastMessage);
+                   // globalHttpStatusErrorHandlerChannel.send(fastMessage);
                     break;
                 default:
                     if (failedPayload.getHsxErrorInfo().getHttpStatus() == null) {
@@ -92,7 +91,7 @@ public class RestResponseHandler {
     private RestTemplate getRestTemplate(int restConnectionTimeout, int restReadTimeout) {
         return new RestTemplateBuilder()
                 .setConnectTimeout(Duration.ofSeconds(restConnectionTimeout))
-                .errorHandler(restTemplateResponseErrorHandler)
+//                .errorHandler(restTemplateResponseErrorHandler)
                 .setReadTimeout(Duration.ofSeconds(restReadTimeout))
                 .build();
     }

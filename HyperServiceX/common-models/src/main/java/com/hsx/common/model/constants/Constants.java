@@ -10,6 +10,13 @@ public class Constants {
         CUSTOM_VALUES
 
     }
+
+    public class Common {
+        public final static String GLOBAL_STATUS = "GLOBAL_STATUS";
+        public final static String OK = "OK";
+        public final static String NOT_OK = "NOT_OK";
+    }
+
     public class Encryption {
         public final static String KEY_ALGORITHM = "encryption.algorithm";
         public final static String KEY_PASSKEY = "encryption.key";

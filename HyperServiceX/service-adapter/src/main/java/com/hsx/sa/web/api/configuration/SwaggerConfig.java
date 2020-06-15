@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 
 @Configuration
-@EnableSwagger2
+//@EnableSwagger2
 @Profile({"dev","sit"})
 public class SwaggerConfig {
 

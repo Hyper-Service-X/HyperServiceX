@@ -30,7 +30,7 @@ public class GlobalHttpStatusErrorHandler extends AbstractService<Void, HSXMessa
     @Override
     public Message<Void> executeService(Message<HSXMessage> msg) {
         sTime = System.nanoTime();
-        MessageType messageType = msg.getHeaders().get(Constants.MessageHeaders.MESSAGE_TYPE.name(), com.hsx.common.model.constants.MessageType.class);
+        MessageType messageType = msg.getHeaders().get(Constants.MessageHeaders.MESSAGE_TYPE.name(), MessageType.class);
         try {
             restCallAckMessageProducerService.publishPersistedMessage(
                     getTopicName(messageType, ""),

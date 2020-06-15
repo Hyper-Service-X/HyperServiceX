@@ -2,18 +2,10 @@ solace:
   default-site-no: ${NODE.SITE.NO}
   vpn-id: ${SOLACE_VPN_UNIQUE_ID:1}
   nodes:
-    - host: ${SOLACE_HOST}
-      msgVpn: ${SOLACE_MSG_VPN}
-      clientUsername: ${SOLACE_CLIENT_USERNAME}
-      clientPassword: ${SOLACE_CLIENT_PASSWORD}
-      apiProperties:
-        allow-guaranteed‑message‑receive: true
-        allow‑guaranteed‑endpont-create: true
-        IGNORE_DUPLICATE_SUBSCRIPTION_ERROR: true
-    - host: ${SOLACE_HOST}
-      msgVpn: ${SOLACE_MSG_VPN}
-      clientUsername: ${SOLACE_CLIENT_USERNAME}
-      clientPassword: ${SOLACE_CLIENT_PASSWORD}
+    - host: ${SOLACE_HOST:tcp://mr17km0la8m7d.messaging.solace.cloud:55555}
+      msgVpn: ${SOLACE_MSG_VPN:hyperservicex}
+      clientUsername: ${SOLACE_CLIENT_USERNAME:solace-cloud-client}
+      clientPassword: ${SOLACE_CLIENT_PASSWORD:3kuoanopc134pii7u8ltbrbpud}
       apiProperties:
         allow-guaranteed‑message‑receive: true
         allow‑guaranteed‑endpont-create: true
@@ -21,5 +13,4 @@ solace:
   topics:
     templates:
       v1:
-        PROCESSOR_STATUS: HSX0${NODE.SITE.NO}/${solace.vpn-id}/G/ADM/PROSTAUS/$[operation]/NFY/SA0${NODE.NO}/$[messageEntryPoint]/V1/JSON
         SA_STATUS: HSX0${NODE.SITE.NO}/${solace.vpn-id}/G/ADM/SASTATUS/$[operation]/NFY/SA0${NODE.NO}/$[messageEntryPoint]/V1/JSON
